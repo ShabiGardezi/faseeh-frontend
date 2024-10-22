@@ -26,28 +26,28 @@ function ContactUsPage({ showHeroSection = true }) {
     <div className="overflow-x-hidden text-white">
       {/* hero section  */}
       {showHeroSection && (
-        <ImagesSliderShower title="Contact Us" pageName="Contact Us" />
+        <ImagesSliderShower title="تواصل معنا" pageName="تواصل معنا" />
       )}
 
       {/* contact us section  */}
       <div className="w-full flex flex-col items-center gap-2 pb-5">
         <span className="inline-block mt-20 text-2xl uppercase border-b-4 text-blue-600">
-          Contact Us
+          تواصل معنا
         </span>
 
         <p
           data-aos="fade-up"
           className="text-4xl font-extrabold text-md text-opacity-85 font_barlow text-center md:w-[35%]"
         >
-          Get In Touch Today
+          تواصل معنا اليوم
         </p>
 
         <p
           data-aos="fade-up"
           className="mt-2 text-md text-opacity-85 font_barlow text-center p-2"
         >
-          Get in touch with us to book your appointment. Call us directly or
-          fill out the contact information form because, We Come To You!
+          تواصل معنا لحجز موعدك. اتصل بنا مباشرة أو املأ نموذج معلومات الاتصال
+          لأننا نأتي إليك!
         </p>
       </div>
 
@@ -58,40 +58,40 @@ function ContactUsPage({ showHeroSection = true }) {
             <IoLocationOutline className="text-5xl text-white" />
           </div>
 
-          <h1 className="text-2xl font-bold">Address</h1>
+          <h1 className="text-2xl font-bold">عنوان</h1>
           <p
             data-aos="fade-up"
             className="mt-2 text-md text-opacity-85 font_barlow text-center "
           >
-            Plot# 90, Block D2, Phase 1 Johar Town, Lahore
+            2360 Hood Avenue, San Diego, CA, 92123
           </p>
         </div>
+        
         <div className="bg-blue-600 flex flex-col gap-5 items-center justify-center rounded-3xl text-white p-5">
           <div className="bg-base-300 w-20 h-20 rounded-full flex items-center justify-center">
             <LuPhoneCall className="text-5xl text-white" />
           </div>
 
-          <h1 className="text-2xl font-bold">Phone Number</h1>
+          <h1 className="text-2xl font-bold">رقم الهاتف</h1>
           <p
             data-aos="fade-up"
             className="mt-2 text-md text-opacity-85 font_barlow text-center "
           >
-            04232322782
-            <br />
-            03000332782
+            02012156485
           </p>
         </div>
+        
         <div className="bg-base-300 flex flex-col gap-5 items-center justify-center rounded-3xl text-white p-5">
           <div className="bg-blue-600 w-20 h-20 rounded-full flex items-center justify-center">
             <MdOutlineAttachEmail className="text-5xl text-white" />
           </div>
 
-          <h1 className="text-2xl font-bold">Our Mailbox</h1>
+          <h1 className="text-2xl font-bold">صندوق البريد الخاص بنا</h1>
           <p
             data-aos="fade-up"
             className="mt-2 text-md text-opacity-85 font_barlow text-center "
           >
-            info@rankbpo.com
+            contact@example.com
           </p>
         </div>
       </div>
@@ -102,47 +102,27 @@ function ContactUsPage({ showHeroSection = true }) {
         <div
           className=" text-black rounded-3xl shadow-xl bg-[#001b47]/30 p-5 md:p-10"
           data-aos="fade-right"
+          dir="rtl"
         >
-          <form onSubmit={handleSubmit(onSubmit)}>
+           <form onSubmit={handleSubmit(onSubmit)}>
             {/* Name Field */}
             <div className="mb-4">
               <label
                 htmlFor="name"
-                className="block text-sm font-medium text-gray-400"
+                className="block text-sm font-medium text-gray-200"
               >
-                Name
+                الاسم الكامل
               </label>
               <input
                 type="text"
                 id="name"
                 {...register("name", { required: true })}
-                className={`mt-1 bg-white block w-full px-3 py-2 border text-gray-200 bg-white/10 border-gray-800 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm ${
+                className={`mt-1 bg-slate-600 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm ${
                   errors.name ? "border-red-500" : ""
                 }`}
               />
               {errors.name && (
-                <p className="text-red-500 text-xs mt-2">Name is required</p>
-              )}
-            </div>
-
-            {/* Phone Field */}
-            <div className="mb-4">
-              <label
-                htmlFor="phone"
-                className="block text-sm font-medium text-gray-400"
-              >
-                Phone
-              </label>
-              <input
-                type="number"
-                id="phone"
-                {...register("phone", { required: true })}
-                className={`mt-1 bg-white block w-full px-3 py-2 border text-gray-200 bg-white/10 border-gray-800 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm ${
-                  errors.phone ? "border-red-500" : ""
-                }`}
-              />
-              {errors.email && (
-                <p className="text-red-500 text-xs mt-2">Phone is required</p>
+                <p className="text-red-500 text-xs mt-2">حقل الاسم مطلوب</p>
               )}
             </div>
 
@@ -150,20 +130,41 @@ function ContactUsPage({ showHeroSection = true }) {
             <div className="mb-4">
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-gray-400"
+                className="block text-sm font-medium text-gray-200"
               >
-                Email
+                البريد الإلكتروني
               </label>
               <input
                 type="email"
                 id="email"
                 {...register("email", { required: true })}
-                className={`mt-1 block w-full px-3 py-2 border text-gray-200 bg-white/10 border-gray-800 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm ${
+                className={`mt-1 bg-slate-600 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm ${
                   errors.email ? "border-red-500" : ""
                 }`}
               />
               {errors.email && (
-                <p className="text-red-500 text-xs mt-2">Email is required</p>
+                <p className="text-red-500 text-xs mt-2">حقل البريد الإلكتروني</p>
+              )}
+            </div>
+
+            {/* subject Field */}
+            <div className="mb-4">
+              <label
+                htmlFor="subject"
+                className="block text-sm font-medium text-gray-200"
+              >
+                 موضوع الرسالة
+              </label>
+              <input
+                type="number"
+                id="subject"
+                {...register("subject", { required: true })}
+                className={`mt-1 bg-slate-600 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm ${
+                  errors.phone ? "border-red-500" : ""
+                }`}
+              />
+              {errors.subject && (
+                <p className="text-red-500 text-xs mt-2">الموضوع مطلوب</p>
               )}
             </div>
 
@@ -171,28 +172,28 @@ function ContactUsPage({ showHeroSection = true }) {
             <div className="mb-4">
               <label
                 htmlFor="message"
-                className="block text-sm font-medium text-gray-400"
+                className="block text-sm font-medium text-gray-200"
               >
-                Message
+                محتوى الرسالة
               </label>
               <textarea
                 type="text"
                 id="message"
                 {...register("message", { required: true })}
-                className={`mt-1 bg-white block w-full px-3 py-2 border text-gray-200 bg-white/10 border-gray-800 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm ${
+                className={`mt-1 bg-slate-600 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm ${
                   errors.message ? "border-red-500" : ""
                 }`}
               />
-              {errors.email && (
-                <p className="text-red-500 text-xs mt-2">Message is required</p>
+              {errors.message && (
+                <p className="text-red-500 text-xs mt-2">حقل محتوى الرسالة مطلوب</p>
               )}
             </div>
 
             <button
               type="submit"
-              className="w-full bg-[#314361d3] text-white p-4 mt-10 rounded-md hover:bg-[#283750d3] focus:outline-none focus:ring-2 focus:ring-[#0c131fd3] focus:ring-offset-2"
+              className="w-full bg-blue-600 text-white p-4 mt-10 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
             >
-              Send
+              أرسل الآن
             </button>
           </form>
         </div>

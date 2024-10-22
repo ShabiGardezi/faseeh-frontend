@@ -6,29 +6,37 @@ import { ImagesSliderShower } from "@/components/shared/ImagesSliderShower";
 const cardsdetail = [
   {
     image: "/images/business-meeting-in-modern-conference-room.jpg",
-    title: "Custom Development",
+    title: "تحليل النصوص",
     description:
-      "Welcome to Rank BPO, your one-stop solution for premium digital services. We are a team of experienced...",
-    url: "/services/custom-development",
+      "في فصيح، نقدم خدمات تحليل النصوص باستخدام تقنيات متقدمة لفهم وتحليل البيانات النصية بدقة...",
+    url: "/services/parsing",
     iconVideoSrc: "/videos/0lVW4c3VGL0RIs9Ad5.mp4",
   },
   {
     image:
       "/images/creative-business-people-working-on-business-project-1536x1024-1.jpg",
-    title: "Digital Marketing",
+    title: "تشكيل النصوص",
     description:
-      "CRYSTAL SERUM CERAMIC COATING provides a Supreme Hard Protection, Scratch & Swirls Resistant. This Coating Provides...",
-    url: "/services/digital-marketing",
+      "نقوم في فصيح بتقديم خدمات تشكيل النصوص بشكل دقيق لضمان وضوح المعاني وسلامة اللغة...",
+    url: "/services/formation",
     iconVideoSrc: "/videos/K93ci7841DV532yJ8u.mp4",
   },
   {
     image:
       "/images/business-colleagues-collaborating-and-discussing-project-plans-e1603078432543-1.jpg",
-    title: "Customer Support",
+    title: "التدقيق اللغوي",
     description:
-      "LEATHER GUARD COATING is made out of nanotechnology and is a Super Hydro-Phobic Coating that Protects, Leather...",
-    url: "/services/customer-support",
+      "يقدم فصيح خدمات التدقيق اللغوي لضمان خلو النصوص من الأخطاء اللغوية والنحوية بشكل احترافي...",
+    url: "/services/proof-reading",
     iconVideoSrc: "/videos/1Jnw4Nae2Bg39q.mp4",
+  },
+  {
+    image: "/images/business-meeting-in-modern-conference-room.jpg",
+    title: "توليد النصوص",
+    description:
+      "نستخدم في فصيح تقنيات متقدمة لتوليد النصوص بشكل مبتكر يلبي احتياجاتك اللغوية والإبداعية...",
+    url: "/services/text-generation",
+    iconVideoSrc: "/videos/0lVW4c3VGL0RIs9Ad5.mp4",
   },
 ];
 
@@ -39,35 +47,35 @@ function ServicesPage({ showHeroSection = true, limit }) {
     <div>
       {/* hero section  */}
       {showHeroSection && (
-        <ImagesSliderShower title={"Services"} pageName={"Services"} />
+        <ImagesSliderShower title={"خدماتنا"} pageName={"خدماتنا"} />
       )}
 
       {/* service cards  */}
       {showHeroSection ? (
         <div className="flex flex-col items-center gap-2 pb-5">
           <span className="inline-block mt-20 text-2xl uppercase text-blue-600">
-            Our Services
+            خدماتنا
           </span>
 
           <p
             data-aos="fade-up"
             className="text-3xl md:text-4xl font-extrabold text-md text-opacity-85 font_barlow text-center md:w-[35%]"
           >
-            Explore Our Services
+            استكشف خدماتنا
           </p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-[3fr_1fr]">
           <div className="text-black/90 flex flex-col items-start pl-10 gap-2 pb-5">
             <span className="inline-block mt-14 text-2xl uppercase text-red-600">
-              Our Services
+              خدماتنا
             </span>
 
             <p
               data-aos="fade-up"
               className="text-3xl md:text-4xl font-extrabold text-md text-opacity-85 font_barlow text-center md:w-[35%]"
             >
-              Explore Our Services
+              استكشف خدماتنا
             </p>
           </div>
 
@@ -77,13 +85,13 @@ function ServicesPage({ showHeroSection = true, limit }) {
               className="btn bg-blue-600 border-0 text-white hover:bg-red-600 hover:scale-110"
               data-aos="fade-left"
             >
-              All Services
+              جميع الخدمات
             </Link>
           </div>
         </div>
       )}
 
-      <div className=" grid grid-cols-1 md:grid-cols-3 2xl:grid-cols-4 gap-4 p-10">
+      <div className=" grid grid-cols-1 md:grid-cols-3 gap-4 p-10">
         {cardsToShow.map(({ image, title, description, url, iconVideoSrc }) => (
           <ServiceCard
             key={title}

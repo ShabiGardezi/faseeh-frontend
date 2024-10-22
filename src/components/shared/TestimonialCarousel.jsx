@@ -62,8 +62,8 @@ export function TestimonialCarousel() {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="bg-blue-500 text-white border-0 hover:bg-red-600 hover:text-white" />
-        <CarouselNext className="bg-blue-500 text-white border-0 hover:bg-red-600 hover:text-white" />
+        <CarouselPrevious className="bg-blue-500 text-white border-0 hover:bg-black/60 hover:text-white" />
+        <CarouselNext className="bg-blue-500 text-white border-0 hover:bg-black/60 hover:text-white" />
       </Carousel>
     </div>
   );
