@@ -47,51 +47,51 @@ function ServicesPage({ showHeroSection = true, limit }) {
     <div>
       {/* hero section  */}
       {showHeroSection && (
-        <ImagesSliderShower title={"خدماتنا"} pageName={"خدماتنا"} />
+        <ImagesSliderShower title={"Services"} pageName={"Services"} />
       )}
 
       {/* service cards  */}
       {showHeroSection ? (
-        <div className="flex flex-col items-center gap-2 pb-5">
+        <div className="flex flex-col bg-[#DEF4F7] items-center gap-2 pb-5">
           <span className="inline-block mt-20 text-2xl uppercase text-blue-600">
-            خدماتنا
+            Our Services
           </span>
 
           <p
             data-aos="fade-up"
             className="text-3xl md:text-4xl font-extrabold text-md text-opacity-85 font_barlow text-center md:w-[35%]"
           >
-            استكشف خدماتنا
+            Explore Our Services
           </p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-[3fr_1fr]">
           <div className="text-black/90 flex flex-col items-start pl-10 gap-2 pb-5">
             <span className="inline-block mt-14 text-2xl uppercase text-red-600">
-              خدماتنا
+              Our Services
             </span>
 
             <p
               data-aos="fade-up"
               className="text-3xl md:text-4xl font-extrabold text-md text-opacity-85 font_barlow text-center md:w-[35%]"
             >
-              استكشف خدماتنا
+              Explore Our Services
             </p>
           </div>
 
-          <div className="flex justify-end items-center pr-10">
+          <div className="flex justify-end items-center pr-10 bg-[#DEF4F7]">
             <Link
               href={"/services"}
-              className="btn bg-blue-600 border-0 text-white hover:bg-red-600 hover:scale-110"
+              className="btn bg-blue-600 border-0 text-black hover:bg-blue-600 hover:scale-110"
               data-aos="fade-left"
             >
-              جميع الخدمات
+              All Services
             </Link>
           </div>
         </div>
       )}
 
-      <div className=" grid grid-cols-1 md:grid-cols-3 gap-4 p-10">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-10 bg-[#DEF4F7]">
         {cardsToShow.map(({ image, title, description, url, iconVideoSrc }) => (
           <ServiceCard
             key={title}

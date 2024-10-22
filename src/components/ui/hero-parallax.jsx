@@ -46,7 +46,7 @@ export const HeroParallax = ({ products }) => {
   return (
     <div
       ref={ref}
-      className="h-[310vh] py-40 overflow-hidden antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
+      className="h-[310vh] py-40 bg-[#DEF4F7] overflow-hidden antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
     >
       <Header />
       <motion.div
@@ -85,7 +85,7 @@ export const Header = () => {
   const router = useRouter();
 
   return (
-    <div className="max-w-7xl relative mx-auto py-20 md:py-40 px-4 w-full left-0 top-0" dir="rtl">
+    <div className="max-w-7xl relative mx-auto py-20 md:py-40 px-4 w-full left-0 top-0 text-black" dir="rtl">
       <h1 className="text-2xl md:text-6xl font-bold dark:text-white capitalize ">
         النهائي فصيح حل اللغة العربية
       </h1>
@@ -131,8 +131,8 @@ export const ProductCard = ({ product, translate }) => {
           alt={product.title}
         />
       </Link>
-      <div className="absolute inset-0 h-full w-full opacity-0 group-hover/product:opacity-80 bg-black pointer-events-none rounded-3xl"></div>
-      <h2 className="absolute bottom-4 left-4 opacity-0 group-hover/product:opacity-100 text-white">
+      <div className="absolute inset-0 h-full w-full opacity-0 group-hover/product:opacity-40 bg-[#DEF4F7] pointer-events-none rounded-3xl"></div>
+      <h2 className="absolute bottom-4 left-4 opacity-0 group-hover/product:opacity-100 text-black">
         {product.title}
       </h2>
     </motion.div>

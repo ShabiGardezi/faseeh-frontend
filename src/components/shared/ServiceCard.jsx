@@ -14,7 +14,7 @@ function ServiceCard({
   return (
 
     <CardContainer className="inter-var">
-      <CardBody className="bg-base-300 relative group/card  dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-base-300 dark:border-white/[0.2] border-black/[0.1] w-auto sm:w-[25rem] h-auto rounded-xl p-6 border  ">
+      <CardBody className="bg-[#DEF4F7] relative group/card  dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-base-300 dark:border-white/[0.2] border-black/[0.1] w-auto sm:w-[25rem] h-auto rounded-xl p-6 border  ">
         <CardItem
           translateZ="50"
           className="text-xl font-bold text-neutral-600 dark:text-white capitalize"
@@ -42,7 +42,7 @@ function ServiceCard({
             translateZ={20}
             as={Link}
             href={url}
-            className="px-4 py-2 rounded-xl dark:bg-white dark:text-blue-600 text-white text-xs font-bold"
+            className="px-4 py-2 rounded-xl bg-blue-500 text-[#DEF4F7] dark:bg-white dark:text-blue-600 text-xs font-bold"
           >
             Read More
           </CardItem>

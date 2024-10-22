@@ -3,7 +3,7 @@ import { HeroParallax } from "../ui/hero-parallax";
 
 function HeroSection() {
   return (
-    <div className="overflow-x-hidden pb-10">
+    <div className="overflow-x-hidden pb-10 bg-[#DEF4F7]">
       <HeroParallax products={products} />
     </div>
   );

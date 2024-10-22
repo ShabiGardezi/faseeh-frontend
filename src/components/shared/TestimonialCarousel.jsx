@@ -30,7 +30,6 @@ const testimonials = [
   },
 ];
 
-
 export function TestimonialCarousel() {
   return (
     <div className="w-full h-full px-6 md:px-0">
@@ -62,8 +61,8 @@ export function TestimonialCarousel() {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="bg-blue-500 text-white border-0 hover:bg-black/60 hover:text-white" />
-        <CarouselNext className="bg-blue-500 text-white border-0 hover:bg-black/60 hover:text-white" />
+        <CarouselPrevious className="bg-blue-500 text-white border-0 hover:bg-black/70 hover:text-white" />
+        <CarouselNext className="bg-blue-500 text-white border-0 hover:bg-black/70 hover:text-white" />
       </Carousel>
     </div>
   );

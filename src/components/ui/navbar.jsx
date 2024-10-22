@@ -190,14 +190,14 @@ function Dropdown({ item }) {
     >
       <button
         onClick={navigateToPage}
-        className="text-[#005bea] hover:bg-[#005bea] hover:text-white px-3 py-2 rounded-md text-sm font-medium flex items-center"
+        className="text-[#005bea] bg-[#DEF4F7] hover:bg-[#005bea] hover:text-white px-3 py-2 rounded-md text-sm font-medium flex items-center"
       >
         {item.icon}
         <span className="ml-2">{item.name}</span>
         {item.subMenu && <ChevronDown className="ml-2 h-4 w-4" />}
       </button>
       {isOpen && item.subMenu && (
-        <div className="absolute z-10 left-0 mt-2 w-32 rounded-md shadow-lg bg-base-200 ring-1 ring-black ring-opacity-5">
+        <div className="absolute z-10 right-0 mt-2 shadow-lg bg-[#DEF4F7] ring-1 ring-black ring-opacity-5">
           <div
             className="py-1 rounded-lg"
             role="menu"
@@ -239,7 +239,7 @@ function DropdownItem({ item }) {
 
   return (
     <div
-      className="z-100 relative bg-base-200 w-[20vw]"
+      className="z-100 relative bg-[#DEF4F7] w-[20vw]"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >

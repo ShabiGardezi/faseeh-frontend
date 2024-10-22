@@ -8,7 +8,7 @@ import { RiCustomerService2Fill, RiTeamFill } from "react-icons/ri";
 
 function AboutUsPage({ showHeroSection = true }) {
   return (
-    <div className="bg-base-200">
+    <div className="bg-[#DEF4F7]">
       {showHeroSection && (
         <ImagesSliderShower title="معلومات عنا" pageName="معلومات عنا" />
       )}
@@ -22,7 +22,7 @@ function AboutUsPage({ showHeroSection = true }) {
         </div>
 
         {/* right side  */}
-        <div className="text-white mr-24" dir="rtl">
+        <div className="text-black mr-24" dir="rtl">
           <span className="inline-block mt-20 text-2xl uppercase border-b-4 text-blue-600">
             معلومات عنا
           </span>
@@ -55,7 +55,7 @@ function AboutUsPage({ showHeroSection = true }) {
             <NumberAnimation end={22345} suffix={"+"} />
           </div>
 
-          <p className="text-center text-xl text-white">عملاء سعداء</p>
+          <p className="text-center text-xl text-black">عملاء سعداء</p>
         </div>
 
         <div className="flex flex-col justify-center ">
@@ -64,14 +64,14 @@ function AboutUsPage({ showHeroSection = true }) {
             <NumberAnimation end={500} suffix={"+"} />
           </div>
 
-          <p className="text-center text-xl text-white">أعضاء الفريق</p>
+          <p className="text-center text-xl text-black">أعضاء الفريق</p>
         </div>
       </div>
 
       {/* Who We Are  */}
       <div className="min-h-[70vh] grid grid-cols-1 md:grid-cols-[1fr_1fr] gap-x-10  p-10">
         {/* left side  */}
-        <div className="text-white ml-24" dir="rtl">
+        <div className="text-black ml-24" dir="rtl">
           <span className="inline-block mt-20 text-2xl uppercase border-b-4 text-blue-600">
             من نحن
           </span>
@@ -162,7 +162,7 @@ function AboutUsPage({ showHeroSection = true }) {
 
           <h1
             data-aos="fade-down"
-            className="mt-10 text-white text-3xl font-semibold"
+            className="mt-10 text-3xl font-semibold"
           >
             ماذا يقول العملاء عن خدماتنا؟
           </h1>

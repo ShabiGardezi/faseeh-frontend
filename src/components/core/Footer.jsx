@@ -59,7 +59,7 @@ const services = [
 function Footer() {
   return (
     <>
-      <footer className="footer bg-base-200 text-base-content p-10 md:grid md:grid-cols-4 font_barlow">
+      <footer className="footer bg-[#DEF4F7] text-black opacity-80 p-10 md:grid md:grid-cols-4 font_barlow">
         <aside data-aos="fade-up">
           <div className="flex items-start justify-start">
             <Link href="/" className="ms-0 h-8 md:h-12 w-40">
@@ -154,7 +154,7 @@ function Footer() {
 
       <footer
         data-aos="fade-right"
-        className="footer bg-base-200 text-base-content flex justify-center p-5"
+        className="footer bg-[#DEF4F7] text-base-content flex justify-center p-5"
       >
         <span className="text-lg font-semibold text-blue-600" dir="rtl">
         © 2021-24 فصيح. جميع الحقوق محفوظة.
