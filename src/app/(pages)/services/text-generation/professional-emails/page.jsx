@@ -1,23 +1,15 @@
-import React from 'react'
+import { ProfessionalEmailWriterComponent } from "@/components/professional-email-writer";
+import React from "react";
 
 function ProfessionalEmailsServicePage() {
   return (
-    <div>ProfessionalEmailsServicePage</div>
-  )
+    <div className="bg-gray-100">
+      <ProfessionalEmailWriterComponent />
+    </div>
+  );
 }
 
-export default ProfessionalEmailsServicePage
-
-
-
-
-
-
-
-
-
-
-
+export default ProfessionalEmailsServicePage;
 
 // import { ImagesSliderShower } from '@/components/shared/ImagesSliderShower';
 // import MediaPlayer from '@/components/shared/MediaPlayer';
