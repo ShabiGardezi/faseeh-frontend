@@ -48,28 +48,30 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { jsPDF } from "jspdf";
+import axios from "axios";
 
 const formSchema = z.object({
   purpose: z
     .string()
-    .min(1, "Purpose is required")
-    .max(100, "Purpose must be 100 characters or less"),
+    .min(1, "الغرض مطلوب")
+    .max(100, "يجب أن يكون الغرض 100 حرف أو أقل"),
   recipient: z
     .string()
-    .min(1, "Recipient is required")
-    .max(50, "Recipient must be 50 characters or less"),
+    .min(1, "المستلم مطلوب")
+    .max(50, "يجب أن يكون المستلم 50 حرفًا أو أقل"),
   tone: z.enum(["formal", "friendly", "informal"], {
-    required_error: "Please select a tone",
+    required_error: "يرجى اختيار نبرة",
   }),
   mainDetails: z
     .string()
-    .min(10, "Main details must be at least 10 characters")
-    .max(500, "Main details must be 500 characters or less"),
+    .min(10, "يجب أن تكون التفاصيل الرئيسية على الأقل 10 أحرف")
+    .max(500, "يجب أن تكون التفاصيل الرئيسية 500 حرف أو أقل"),
   cta: z
     .string()
-    .min(1, "Call to action is required")
-    .max(100, "Call to action must be 100 characters or less"),
+    .min(1, "دعوة للعمل مطلوبة")
+    .max(100, "يجب أن تكون دعوة للعمل 100 حرف أو أقل"),
 });
+
 
 export function ProfessionalEmailWriterComponent() {
   const { toast } = useToast();
@@ -89,25 +91,37 @@ export function ProfessionalEmailWriterComponent() {
     },
   });
 
-  const handleGenerateEmail = async (values) => {
-    setIsGenerating(true);
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    const email = `
-Dear ${values.recipient},
 
-I hope this email finds you well. I am writing to ${values.purpose}.
+const handleGenerateEmail = async (values) => {
+  setIsGenerating(true);
 
-${values.mainDetails}
+  try {
+    // Make the API request with Axios
+    const response = await axios.post("http://localhost:5000/api/watson/professional-email", {
+      purpose: values.purpose,
+      recipient: values.recipient,
+      tone: values.tone,
+      mainDetails: values.mainDetails,
+      cta: values.cta,
+    });
 
-${values.cta}
+    // Get the generated text from the response
+    const generatedText = response?.data?.generated_text;
 
-Best regards,
-[Your Name]
-    `;
-    setGeneratedEmail(email.trim());
+    // Set the generated email in state
+    setGeneratedEmail(generatedText);
+  } catch (error) {
+    console.error("Error generating email:", error);
+    toast({
+      title: "Error",
+      description: "Failed to generate email. Please try again.",
+      variant: "destructive",
+    });
+  } finally {
     setIsGenerating(false);
-  };
+  }
+};
+
 
   const handleSaveEmail = () => {
     if (generatedEmail) {
@@ -198,6 +212,7 @@ Best regards,
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
       className="container mx-auto p-4 max-w-4xl pt-[10%] bg-[#ffffff]"
+      dir="rtl"
     >
       {/* main title  */}
       <motion.h1
@@ -206,7 +221,7 @@ Best regards,
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
         className="text-3xl font-bold mb-6 text-center text-[#20b1c9]"
       >
-        Professional Email Writer
+        كاتب بريد إلكتروني محترف
       </motion.h1>
 
       {/* form  section*/}
@@ -227,9 +242,12 @@ Best regards,
               name="purpose"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Purpose</FormLabel>
+                  <FormLabel>غرض</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter the email purpose" {...field} />
+                    <Input
+                      placeholder="أدخل غرض البريد الإلكتروني"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -242,9 +260,9 @@ Best regards,
               name="recipient"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Recipient</FormLabel>
+                  <FormLabel>غرض</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter recipient's name" {...field} />
+                    <Input placeholder="أدخل اسم المستلم" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -257,20 +275,21 @@ Best regards,
               name="tone"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Tone</FormLabel>
+                  <FormLabel>نبرة</FormLabel>
                   <Select
                     onValueChange={field.onChange}
                     defaultValue={field.value}
+                    dir="rtl"
                   >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select the tone of the email" />
+                        <SelectValue placeholder="اختر نبرة البريد الإلكتروني" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="formal">Formal</SelectItem>
-                      <SelectItem value="friendly">Friendly</SelectItem>
-                      <SelectItem value="informal">Informal</SelectItem>
+                      <SelectItem value="formal">رسمي</SelectItem>
+                      <SelectItem value="friendly">ودود</SelectItem>
+                      <SelectItem value="informal">غير رسمي</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -284,9 +303,9 @@ Best regards,
               name="mainDetails"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Main Details</FormLabel>
+                  <FormLabel>التفاصيل الرئيسية</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="Enter the main details" {...field} />
+                    <Textarea placeholder="أدخل التفاصيل الرئيسية" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -299,9 +318,9 @@ Best regards,
               name="cta"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Call to Action</FormLabel>
+                  <FormLabel>دعوة للعمل</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter the call to action" {...field} />
+                    <Input placeholder="أدخل دعوة للعمل" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -314,14 +333,14 @@ Best regards,
                 {isGenerating ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Generating...
+                    جاري التوليد...
                   </>
                 ) : (
-                  "Generate Email"
+                  "توليد بريد إلكتروني"
                 )}
               </Button>
               <Button type="reset" variant="outline" onClick={resetForm}>
-                Reset
+                إعادة تعيين
               </Button>
             </div>
           </form>
@@ -339,14 +358,14 @@ Best regards,
           >
             <Card className="mb-6">
               <CardHeader>
-                <CardTitle>Generated Email</CardTitle>
+                <CardTitle>البريد الإلكتروني المُولد</CardTitle>
               </CardHeader>
               <CardContent>
                 <pre className="whitespace-pre-wrap">{generatedEmail}</pre>
               </CardContent>
               <CardFooter className="flex justify-between">
                 <Button onClick={handleSaveEmail} disabled={isEmailSaved}>
-                  {isEmailSaved ? "Email Saved" : "Save to Activity Log"}
+                {isEmailSaved ? "تم حفظ البريد الإلكتروني" : "احفظ في سجل النشاط"}
                 </Button>
                 <Button
                   onClick={() =>
@@ -356,7 +375,7 @@ Best regards,
                     })
                   }
                 >
-                  Export Email
+                  تصدير البريد الإلكتروني
                 </Button>
               </CardFooter>
             </Card>
@@ -372,16 +391,16 @@ Best regards,
       >
         <Card>
           <CardHeader>
-            <CardTitle>Activity Log</CardTitle>
+            <CardTitle>سجل النشاط</CardTitle>
           </CardHeader>
           <CardContent>
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Recipient</TableHead>
-                  <TableHead>Purpose</TableHead>
-                  <TableHead>Tone</TableHead>
-                  <TableHead>Actions</TableHead>
+                  <TableHead>المستلم</TableHead>
+                  <TableHead>الغرض</TableHead>
+                  <TableHead>النبرة</TableHead>
+                  <TableHead>الإجراءات</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -392,26 +411,27 @@ Best regards,
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -20 }}
                     transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                    dir="ltr"
                   >
-                    <TableCell>{entry.recipient}</TableCell>
+                    <TableCell >{entry.recipient}</TableCell>
                     <TableCell>{entry.purpose}</TableCell>
                     <TableCell>{entry.tone}</TableCell>
                     <TableCell>
-                      <div className="flex space-x-2">
-                        <Sheet>
+                      <div className="flex space-x-2" >
+                        <Sheet >
                           <SheetTrigger asChild>
                             <Button variant="outline" size="icon">
                               <Eye className="h-4 w-4" />
                             </Button>
                           </SheetTrigger>
                           <SheetContent>
-                            <SheetHeader>
-                              <SheetTitle>Email Details</SheetTitle>
+                            <SheetHeader dir="rtl">
+                              <SheetTitle >تفاصيل البريد الإلكتروني</SheetTitle>
                               <SheetDescription>
-                                Email to {entry.recipient}
+                              البريد الإلكتروني إلى {entry.recipient}
                               </SheetDescription>
                             </SheetHeader>
-                            <div className="mt-4">
+                            <div className="mt-4" dir="rtl">
                               <pre className="whitespace-pre-wrap">
                                 {entry.content}
                               </pre>

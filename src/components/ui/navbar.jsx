@@ -1,102 +1,21 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 
 import {
   Menu,
   X,
   ChevronDown,
-  Zap,
-  Layers,
-  Monitor,
-  Smartphone,
-  Globe,
-  Airplay,
-  ShieldCheck,
-  FolderCode,
-  Workflow,
-  NotepadText,
-  ShoppingBag,
-  Tally5,
-  Youtube,
-  NotebookPen,
-  Box,
-  MessageCircleQuestion,
-  Mails,
-  UserRoundCog,
-  UserRound,
-  MonitorCheck,
-  Logs,
-  Headset,
-  ChartNetwork,
-  Library,
-  Film,
 } from "lucide-react";
 import Link from "next/link";
-import { RiSeoLine } from "react-icons/ri";
-import { SiGooglemarketingplatform } from "react-icons/si";
-import { PiStrategy } from "react-icons/pi";
-import { BsPersonWorkspace } from "react-icons/bs";
 import { useRouter } from "next/navigation";
 
-const menu = [
-  {
-    name: "خدماتنا",
-    href: "/services",
-    icon: <Zap className="h-4 w-4 ml-1" />,
-    subMenu: [
-      {
-        name: "خدمة الإعراب",
-        href: "/services/parsing",
-        icon: <Monitor className="h-4  w-4 ml-1" />,
-      },
-      {
-        name: "خدمة التشكيل",
-        href: "/services/formation",
-        icon: <ChartNetwork className="h-4  w-4 ml-1" />,
-      },
-      {
-        name: "خدمة التدقيق اللغوي",
-        href: "/services/proof-reading",
-        icon: <ChartNetwork className="h-4  w-4 ml-1" />,
-      },
-      {
-        name: "خدمة توليد نصوص",
-        href: "/services/text-generation",
-        icon: <Headset className="h-4  w-4 ml-1" />,
-        subItems: [
-          {
-            name: "نصوص تسويقية",
-            href: "/services/text-generation/marketing-texts",
-            icon: <MessageCircleQuestion className="h-4  w-4 ml-1" />,
-          },
-          {
-            name: "رسائل بريد الكتروني احترافية",
-            href: "/services/text-generation/professional-emails",
-            icon: <Mails className="h-4  w-4 ml-1" />,
-          },
-          {
-            name: "قصص الأمثال العربية للأطفال",
-            href: "/services/text-generation/children-stories",
-            icon: <Airplay className="h-4  w-4 ml-1" />,
-          },
-        ],
-      },
-    ],
-  },
-  {
-    name: "من نحن",
-    href: "/about-us",
-    icon: <Library className="h-4 w-4 ml-1" />,
-  },
-];
-
-export function Navbar() {
+export function Navbar({ menu=[] }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const router = useRouter();
 
   return (
-    <nav className=" text-[#005bea] transition-all">
+    <nav className=" text-[#1C9AAF] transition-all">
       {/* menu items on large screens */}
       <div className="max-w-7xl mx-auto px-1 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
@@ -116,7 +35,7 @@ export function Navbar() {
             <div className="ml-10 flex items-baseline space-x-4 rounded-lg">
               <button
                 onClick={() => router.push("/contact-us")}
-                className="ml-8 px-4 py-2 rounded-md text-sm font-medium text-white bg-[#005bea] hover:bg-[#0046b5] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#005bea]"
+                className="ml-8 px-4 py-2 rounded-md text-sm font-medium text-white bg-[#20b1c9] hover:bg-[#1C9AAF] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#005bea]"
               >
                 تواصل معنا
               </button>
@@ -130,7 +49,7 @@ export function Navbar() {
           <div className="md:hidden" dir="rtl">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-[#005bea] hover:text-white hover:bg-[#005bea] focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+              className="inline-flex items-center justify-center p-2 rounded-md text-[#20b1c9] hover:text-white hover:bg-[#1C9AAF] focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
             >
               <span className="sr-only">Open main menu</span>
               {isMenuOpen ? (
@@ -148,8 +67,8 @@ export function Navbar() {
         <div className="md:hidden">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             <MobileMenu menu={menu} />
-            <button className="mt-4 w-full px-4 py-2 rounded-md text-sm font-medium text-white bg-[#005bea] hover:bg-[#0046b5] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#005bea]">
-            تواصل معنا
+            <button className="mt-4 w-full px-4 py-2 rounded-md text-sm font-medium text-white bg-[#20b1c9] hover:bg-[#1C9AAF] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#005bea]">
+              تواصل معنا
             </button>
           </div>
         </div>
@@ -190,7 +109,7 @@ function Dropdown({ item }) {
     >
       <button
         onClick={navigateToPage}
-        className="text-[#005bea] bg-[#DEF4F7] hover:bg-[#005bea] hover:text-white px-3 py-2 rounded-md text-sm font-medium flex items-center"
+        className="text-[#20b1c9] hover:bg-[#1C9AAF] hover:text-white px-3 py-2 rounded-md text-sm font-medium flex items-center"
       >
         {item.icon}
         <span className="ml-2">{item.name}</span>
@@ -247,7 +166,7 @@ function DropdownItem({ item }) {
         <div>
           <button
             onClick={navigateToPage}
-            className="w-full text-left px-4 py-2 text-sm text-[#005bea] hover:bg-[#005bea] hover:text-white flex items-center justify-between"
+            className="w-full text-left px-4 py-2 text-sm text-[#20b1c9] hover:bg-[#1C9AAF] hover:text-white flex items-center justify-between"
             role="menuitem"
           >
             <span className="flex items-center">
@@ -271,7 +190,7 @@ function DropdownItem({ item }) {
       ) : (
         <Link
           href={item.href}
-          className="block px-4 py-2 text-sm text-[#005bea] hover:bg-[#005bea] hover:text-white flex items-center"
+          className="block px-4 py-2 text-sm text-[#20b1c9] hover:bg-[#1C9AAF] hover:text-white flex items-center"
           role="menuitem"
         >
           {item.icon}
@@ -347,7 +266,7 @@ const MobileMenuItem = ({ menuItem }) => {
                   {subItem.icon}
                   <a
                     href={subItem.href}
-                    className="ml-2 text-sm hover:text-blue-500"
+                    className="ml-2 text-sm hover:text-[#1C9AAF]"
                   >
                     {subItem.name}
                   </a>

@@ -1,16 +1,17 @@
 "use client";
 import { useRouter } from "next/navigation";
 import React from "react";
+import { Button } from "../ui/button";
 
 function ViewAllServices() {
   const router = useRouter();
 
   return (
     <div
-      className="text-white/80 p-10 flex flex-col justify-center items-center"
+      className="bg-[#FFFFFF] text-black/80 p-10 flex flex-col justify-center items-center"
       data-aos="fade-left"
     >
-      <span className="inline-block mt-5 text-2xl uppercase border-b-4 border-blue-600">
+      <span className="inline-block mt-5 text-2xl uppercase border-b-4 border-[#20b1c9]">
         خدمات
       </span>
 
@@ -25,12 +26,13 @@ function ViewAllServices() {
         إليك الخدمات التي نقدمها هنا في فصيح
       </p>
 
-      <button
+      <Button
+        type="button"
         onClick={() => router.push("/services")}
-        className="mt-8 px-4 py-2 rounded-md text-sm font-medium text-white bg-[#005bea] hover:bg-[#0046b5] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#005bea]"
+        className="mt-8"
       >
         عرض جميع الخدمات
-      </button>
+      </Button>
     </div>
   );
 }
