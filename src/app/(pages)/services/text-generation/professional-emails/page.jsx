@@ -3,7 +3,7 @@ import { ProfessionalEmailWriterComponent } from "./professional-email-writer";
 
 function ProfessionalEmailsServicePage() {
   return (
-    <div className="bg-[#ffffff]">
+    <div className="bg-[#ffffff] overflow-x-hidden">
       <ProfessionalEmailWriterComponent />
     </div>
   );

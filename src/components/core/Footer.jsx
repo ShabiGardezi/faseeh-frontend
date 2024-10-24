@@ -80,20 +80,20 @@ function Footer() {
           {/* social media link  */}
           <div className="flex justify-center items-center gap-x-2 ">
             <Link href={"https://twitter.com/faseehapp"}>
-              <FaSquareXTwitter className="text-3xl text-[#005BEA] hover:scale-110 hover:font-semibold transition-all" />
+              <FaSquareXTwitter className="text-3xl text-[#1C9AAF] hover:scale-110 hover:font-semibold transition-all" />
             </Link>
             <Link href={"https://www.instagram.com/faseeh.app/"}>
-              <RiInstagramFill className="text-3xl text-[#005BEA] hover:scale-110 hover:font-semibold transition-all" />
+              <RiInstagramFill className="text-3xl text-[#1C9AAF] hover:scale-110 hover:font-semibold transition-all" />
             </Link>
             <Link href={"https://www.youtube.com/@/faseeh.app/"}>
-              <FaYoutube className="text-4xl text-[#005BEA] hover:scale-110 hover:font-semibold transition-all" />
+              <FaYoutube className="text-4xl text-[#1C9AAF] hover:scale-110 hover:font-semibold transition-all" />
             </Link>
             <Link
               href={
                 "https://www.linkedin.com/company/80291042/admin/feed/posts/"
               }
             >
-              <FaLinkedin className="text-3xl text-[#005BEA] hover:scale-110 hover:font-semibold transition-all" />
+              <FaLinkedin className="text-3xl text-[#1C9AAF] hover:scale-110 hover:font-semibold transition-all" />
             </Link>
             
           </div>
@@ -101,13 +101,13 @@ function Footer() {
 
         {/* Quick link  */}
         <nav className="md:ms-10" data-aos="fade-up">
-          <h6 className="footer-title text-[#005BEA]">روابط سريعة</h6>
+          <h6 className="footer-title text-[#1C9AAF]">روابط سريعة</h6>
 
           {quickLinks.map((link, index) => (
             <Link
               key={index}
               href={link.url}
-              className="text-decoration-none hover:text-[#005BEA] hover:font-semibold"
+              className="text-decoration-none hover:text-[#1C9AAF] hover:font-semibold"
             >
               {link.title}
             </Link>
@@ -116,12 +116,12 @@ function Footer() {
 
         {/* service  */}
         <nav data-aos="fade-up">
-          <h6 className="footer-title text-[#005BEA] z-10">خدماتنا</h6>
+          <h6 className="footer-title text-[#1C9AAF] z-10">خدماتنا</h6>
           {services.map((link, index) => (
             <Link
               key={index}
               href={link.url}
-              className="text-decoration-none hover:text-[#005BEA] hover:font-semibold"
+              className="text-decoration-none hover:text-[#1C9AAF] hover:font-semibold"
             >
               {link.title}
             </Link>
@@ -130,22 +130,22 @@ function Footer() {
 
         {/* contact us  */}
         <nav data-aos="fade-up">
-          <h6 className="footer-title text-[#005BEA]">معلومات التواصل</h6>
+          <h6 className="footer-title text-[#1C9AAF]">معلومات التواصل</h6>
           <div className="cursor-pointer">
             <div className="flex gap-x-2 items-center">
-              <MdOutlinePhoneInTalk className="text-lg  text-blue-600" />
+              <MdOutlinePhoneInTalk className="text-lg  text-[#20b1c9]" />
               <p>02012156485</p>
             </div>
           </div>
           <div className="cursor-pointer">
             <div className="flex gap-x-2 items-center">
-              <MdOutlineMailOutline className="text-lg  text-blue-600" />
+              <MdOutlineMailOutline className="text-lg  text-[#20b1c9]" />
               <p>contact@example.com</p>
             </div>
           </div>
           <div className="cursor-pointer">
             <div className="flex gap-x-2 items-center ">
-              <IoLocationOutline className="text-lg text-blue-600" />
+              <IoLocationOutline className="text-lg text-[#20b1c9]" />
               <p>2360 Hood Avenue, San Diego, CA, 92123</p>
             </div>
           </div>
@@ -153,10 +153,10 @@ function Footer() {
       </footer>
 
       <footer
-        data-aos="fade-right"
+        // data-aos="fade-right"
         className="footer bg-[#DEF4F7] text-base-content flex justify-center p-5"
       >
-        <span className="text-lg font-semibold text-blue-600" dir="rtl">
+        <span className="text-lg font-semibold text-[#20b1c9]" dir="rtl">
         © 2021-24 فصيح. جميع الحقوق محفوظة.
         </span>
       </footer>
