@@ -17,6 +17,16 @@ const menu = [
     icon: <Zap className="h-4 w-4 ml-1" />,
     subMenu: [
       {
+        name: "رسائل بريد الكتروني احترافية",
+        href: "/services/professional-emails",
+        icon: <Mails className="h-4  w-4 ml-1" />,
+      },
+      {
+        name: "تشكيل",
+        href: "/services/tashkeel",
+        icon: <Mails className="h-4  w-4 ml-1" />,
+      },
+      {
         name: "خدمة الإعراب",
         href: "/services/parsing",
         icon: <Monitor className="h-4  w-4 ml-1" />,
@@ -31,28 +41,41 @@ const menu = [
         href: "/services/proof-reading",
         icon: <ChartNetwork className="h-4  w-4 ml-1" />,
       },
+
       {
-        name: "خدمة توليد نصوص",
-        href: "/services/text-generation",
-        icon: <Headset className="h-4  w-4 ml-1" />,
-        subItems: [
-          {
-            name: "نصوص تسويقية",
-            href: "/services/text-generation/marketing-texts",
-            icon: <MessageCircleQuestion className="h-4  w-4 ml-1" />,
-          },
-          {
-            name: "رسائل بريد الكتروني احترافية",
-            href: "/services/text-generation/professional-emails",
-            icon: <Mails className="h-4  w-4 ml-1" />,
-          },
-          {
-            name: "قصص الأمثال العربية للأطفال",
-            href: "/services/text-generation/children-stories",
-            icon: <Airplay className="h-4  w-4 ml-1" />,
-          },
-        ],
+        name: "قصص الأمثال العربية للأطفال",
+        href: "/services/children-stories",
+        icon: <Airplay className="h-4  w-4 ml-1" />,
       },
+
+      {
+        name: "نصوص تسويقية",
+        href: "/services/marketing-texts",
+        icon: <MessageCircleQuestion className="h-4  w-4 ml-1" />,
+      },
+
+      // {
+      //   name: "خدمة توليد نصوص",
+      //   href: "/services/text-generation",
+      //   icon: <Headset className="h-4  w-4 ml-1" />,
+      //   subItems: [
+      //     {
+      //       name: "نصوص تسويقية",
+      //       href: "/services/text-generation/marketing-texts",
+      //       icon: <MessageCircleQuestion className="h-4  w-4 ml-1" />,
+      //     },
+      //     {
+      //       name: "رسائل بريد الكتروني احترافية",
+      //       href: "/services/text-generation/professional-emails",
+      //       icon: <Mails className="h-4  w-4 ml-1" />,
+      //     },
+      //     {
+      //       name: "قصص الأمثال العربية للأطفال",
+      //       href: "/services/text-generation/children-stories",
+      //       icon: <Airplay className="h-4  w-4 ml-1" />,
+      //     },
+      //   ],
+      // },
     ],
   },
   {

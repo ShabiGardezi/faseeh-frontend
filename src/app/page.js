@@ -3,6 +3,7 @@ import HomePage from "./(pages)/home/page";
 import AOS from "aos";
 import "aos/dist/aos.css"; // Import the AOS CSS
 import { useEffect } from "react";
+
 export default function Home() {
   useEffect(() => {
     AOS.init({

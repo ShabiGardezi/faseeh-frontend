@@ -48,8 +48,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { jsPDF } from "jspdf";
-import axios from "axios";
-import LoadingSpinner from "@/components/shared/LoadingSpinner";
+import axiosInstance from "@/lib/axios";
+import LoadingOverlay from "@/components/shared/LoadingOverlay";
 
 const formSchema = z.object({
   purpose: z
@@ -97,17 +97,14 @@ export function ProfessionalEmailWriterComponent() {
     setIsGenerating(true);
 
     try {
-      // Make the API request with Axios
-      const response = await axios.post(
-        "http://localhost:5000/api/watson/professional-email",
-        {
-          purpose: values.purpose,
-          recipient: values.recipient,
-          tone: values.tone,
-          mainDetails: values.mainDetails,
-          cta: values.cta,
-        }
-      );
+      // Make the API request with axiosInstance
+      const response = await axiosInstance.post("/professional-email", {
+        purpose: values.purpose,
+        recipient: values.recipient,
+        tone: values.tone,
+        mainDetails: values.mainDetails,
+        cta: values.cta,
+      });
 
       // Get the generated text from the response
       const generatedText = response?.data?.generated_text;
@@ -217,11 +214,7 @@ export function ProfessionalEmailWriterComponent() {
 
   return (
     <>
-      {isGenerating && (
-        <div className="fixed inset-0 bg-white bg-opacity-70 flex justify-center items-center z-50">
-          <LoadingSpinner />
-        </div>
-      )}
+      <LoadingOverlay isLoading={isGenerating} />
 
       <motion.div
         initial={{ opacity: 0 }}
