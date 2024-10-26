@@ -1,12 +1,12 @@
 import {
   Zap,
-  Monitor,
-  Airplay,
   MessageCircleQuestion,
   Mails,
-  Headset,
-  ChartNetwork,
   Library,
+  ClipboardCheck,
+  NotebookPen,
+  BookOpenText,
+  Baby,
 } from "lucide-react";
 import { Navbar } from "../ui/navbar";
 
@@ -22,30 +22,25 @@ const menu = [
         icon: <Mails className="h-4  w-4 ml-1" />,
       },
       {
+        name: "مدقق القواعد الإملائية والنحوية",
+        href: "/services/grammer-checker",
+        icon: <ClipboardCheck className="h-4  w-4 ml-1" />,
+      },
+      {
         name: "تشكيل",
         href: "/services/tashkeel",
-        icon: <Mails className="h-4  w-4 ml-1" />,
-      },
-      {
-        name: "خدمة الإعراب",
-        href: "/services/parsing",
-        icon: <Monitor className="h-4  w-4 ml-1" />,
-      },
-      {
-        name: "خدمة التشكيل",
-        href: "/services/formation",
-        icon: <ChartNetwork className="h-4  w-4 ml-1" />,
+        icon: <NotebookPen className="h-4  w-4 ml-1" />,
       },
       {
         name: "خدمة التدقيق اللغوي",
         href: "/services/proof-reading",
-        icon: <ChartNetwork className="h-4  w-4 ml-1" />,
+        icon: <BookOpenText className="h-4  w-4 ml-1" />,
       },
 
       {
         name: "قصص الأمثال العربية للأطفال",
         href: "/services/children-stories",
-        icon: <Airplay className="h-4  w-4 ml-1" />,
+        icon: <Baby className="h-4  w-4 ml-1" />,
       },
 
       {
