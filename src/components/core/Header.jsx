@@ -22,6 +22,11 @@ const menu = [
         icon: <Mails className="h-4  w-4 ml-1" />,
       },
       {
+        name: "مدقق القواعد الإملائية والنحوية",
+        href: "/services/grammer-checker",
+        icon: <Mails className="h-4  w-4 ml-1" />,
+      },
+      {
         name: "تشكيل",
         href: "/services/tashkeel",
         icon: <Mails className="h-4  w-4 ml-1" />,
@@ -31,16 +36,16 @@ const menu = [
         href: "/services/parsing",
         icon: <Monitor className="h-4  w-4 ml-1" />,
       },
-      {
-        name: "خدمة التشكيل",
-        href: "/services/formation",
-        icon: <ChartNetwork className="h-4  w-4 ml-1" />,
-      },
-      {
-        name: "خدمة التدقيق اللغوي",
-        href: "/services/proof-reading",
-        icon: <ChartNetwork className="h-4  w-4 ml-1" />,
-      },
+      // {
+      //   name: "خدمة التشكيل",
+      //   href: "/services/formation",
+      //   icon: <ChartNetwork className="h-4  w-4 ml-1" />,
+      // },
+      // {
+      //   name: "خدمة التدقيق اللغوي",
+      //   href: "/services/proof-reading",
+      //   icon: <ChartNetwork className="h-4  w-4 ml-1" />,
+      // },
 
       {
         name: "قصص الأمثال العربية للأطفال",
@@ -53,6 +58,8 @@ const menu = [
         href: "/services/marketing-texts",
         icon: <MessageCircleQuestion className="h-4  w-4 ml-1" />,
       },
+
+
 
       // {
       //   name: "خدمة توليد نصوص",
