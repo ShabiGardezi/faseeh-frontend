@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import {
@@ -13,28 +13,59 @@ import {
 import { Loader2, Upload, Save, FileDown, RefreshCw } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 import LoadingOverlay from "@/components/shared/LoadingOverlay";
+import useDownloadPdf from "@/hooks/useDownloadPdf";
+import useFileTextExtractor from "@/hooks/useFileTextExtractor";
+import axiosInstance from "@/lib/axios";
 
 export function GrammarSpellCheckComponent() {
   const [inputText, setInputText] = useState("");
   const [file, setFile] = useState(null);
   const [checkedText, setCheckedText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const { downloadPdf } = useDownloadPdf();
+  const { extractTextFromFile, extractedText, loading, error } =
+    useFileTextExtractor();
 
-  const handleFileUpload = (event) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      setFile(file);
+  const handleFileUpload = async (event) => {
+    const uploadedFile = event.target.files?.[0];
+    if (uploadedFile) {
+      setFile(uploadedFile);
+
+      // Extract text from the uploaded file
+      await extractTextFromFile(uploadedFile);
     }
   };
 
+  // Set the extracted text to inputText when it's updated
+  useEffect(() => {
+    if (extractedText) {
+      setInputText(extractedText);
+    }
+  }, [extractedText]);
+
   const handleCheckText = async () => {
     setIsLoading(true);
-    // Placeholder for API call
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    setCheckedText(
-      `Corrected text: ${inputText}\n\nErrors found:\n1. Error 1\n2. Error 2`
-    );
-    setIsLoading(false);
+
+    try {
+      // Make the API request with axiosInstance
+      const response = await axiosInstance.post("/grammatical-analysis", {
+        content: inputText,
+      });
+
+      // Get the generated text from the response
+      const generatedText = response?.data?.generated_text;
+
+      setCheckedText(generatedText);
+    } catch (error) {
+      console.error("Error generating child stories:", error);
+      toast({
+        title: "Error",
+        description: "Failed to generate email. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleSaveResult = () => {
@@ -47,11 +78,15 @@ export function GrammarSpellCheckComponent() {
   };
 
   const handleExportResult = () => {
-    // Placeholder for export functionality
-    toast({
-      title: "Result Exported",
-      description: "Your checked text has been exported as a PDF document.",
-    });
+    if (checkedText) {
+      downloadPdf(checkedText, "checkedText.pdf");
+
+      // Placeholder for export functionality
+      toast({
+        title: "القصة تم تصديرها",
+        description: "تم تصدير قصتك كملف PDF.",
+      });
+    }
   };
 
   const handleReset = () => {
@@ -118,15 +153,18 @@ export function GrammarSpellCheckComponent() {
             </Button>
 
             {checkedText && (
-              <div className="p-4 border-2 border-[#1C9AAF] rounded-md bg-[#f0f9fa]" dir="rtl">
+              <div
+                className="p-4 border-2 border-[#1C9AAF] rounded-md bg-[#f0f9fa]"
+                dir="rtl"
+              >
                 <h2 className="text-xl font-semibold mb-2 text-[#20b1c9]">
-                نتائج التحقق:
+                  نتائج التحقق:
                 </h2>
                 <pre className="whitespace-pre-wrap text-sm">{checkedText}</pre>
               </div>
             )}
           </CardContent>
-          <CardFooter className="flex justify-between">
+          <CardFooter className="flex justify-center gap-4 md:justify-between md:gap-0 flex-wrap">
             <Button
               onClick={handleSaveResult}
               disabled={!checkedText}

@@ -50,6 +50,7 @@ import {
 import { jsPDF } from "jspdf";
 import axiosInstance from "@/lib/axios";
 import LoadingOverlay from "@/components/shared/LoadingOverlay";
+import useDownloadPdf from "@/hooks/useDownloadPdf";
 
 const formSchema = z.object({
   purpose: z
@@ -81,6 +82,7 @@ export function ProfessionalEmailWriterComponent() {
   const [activityLog, setActivityLog] = useState([]);
   const [isGenerating, setIsGenerating] = useState(false);
   const [isEmailSaved, setIsEmailSaved] = useState(false);
+  const { downloadPdf } = useDownloadPdf();
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -148,48 +150,14 @@ export function ProfessionalEmailWriterComponent() {
   };
 
   const handleExportEmail = (email) => {
-    const doc = new jsPDF();
-
-    // Set the heading color
-    const headingColor = "#20b1c9";
-
-    // // Set heading style and color
-    // doc.setTextColor(headingColor);
-    // doc.setFontSize(18);
-    // doc.text(`Email to: ${email.recipient}`, 10, 10);
-
-    // doc.setFontSize(16);
-    // doc.text("Purpose:", 10, 20);
-    // doc.setTextColor("black");
-    // doc.setFontSize(14);
-    // doc.text(email.purpose || "Not specified", 10, 28);
-
-    // // Tone
-    // doc.setTextColor(headingColor);
-    // doc.setFontSize(16);
-    // doc.text("Tone:", 10, 38);
-    // doc.setTextColor("black");
-    // doc.setFontSize(14);
-    // doc.text(email.tone || "Not specified", 10, 46);
-
-    // // Content heading
-    // doc.setTextColor(headingColor);
-    // doc.setFontSize(16);
-    // doc.text("Content:", 10, 56);
-
-    // Content body
-    doc.setTextColor("black");
-    doc.setFontSize(12);
-    doc.text(email.content, 10, 6, { maxWidth: 180 });
-
-    // Save the PDF
-    doc.save(`email_to_${email.recipient}.pdf`);
-
-    // Show toast notification
-    toast({
-      title: "Email Exported",
-      description: `Email to ${email.recipient} exported successfully as PDF.`,
-    });
+    if (generatedEmail) {
+      downloadPdf(generatedEmail, "email.pdf");
+      // Show toast notification
+      toast({
+        title: "Email Exported",
+        description: `Email to ${email.recipient} exported successfully as PDF.`,
+      });
+    }
   };
 
   const handleDeleteEmail = (id) => {
@@ -220,7 +188,7 @@ export function ProfessionalEmailWriterComponent() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className="container mx-auto p-4 max-w-4xl pt-[10%] bg-[#ffffff] overflow-hidden"
+        className="container mx-auto p-4 max-w-4xl bg-[#ffffff] overflow-hidden"
         dir="rtl"
       >
         {/* main title  */}

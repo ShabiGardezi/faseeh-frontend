@@ -21,8 +21,11 @@ import {
 import { Loader2, Save, FileDown, RefreshCw } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 import LoadingOverlay from "@/components/shared/LoadingOverlay";
+import axiosInstance from "@/lib/axios";
+import useDownloadPdf from "@/hooks/useDownloadPdf";
 
 const proverbs = [
+  "من طلب العلا سهر الليالي",
   "الوقت كالسيف إن لم تقطعه قطعك",
   "العلم في الصغر كالنقش على الحجر",
   "من جد وجد ومن زرع حصد",
@@ -37,31 +40,54 @@ export function ArabicProverbStoriesComponent() {
   const [story, setStory] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  const { downloadPdf } = useDownloadPdf();
+
   const handleGenerateStory = async () => {
     setIsLoading(true);
-    // Placeholder for API call
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    setStory(
-      `كان هناك طفل يبلغ من العمر ${age} عامًا يُدعى ${name}. تعلم ${name} درسًا مهمًا من المثل: "${proverb}". [سيتم إنشاء بقية القصة هنا]`
-    );
-    setIsLoading(false);
+
+    try {
+      // Make the API request with axiosInstance
+      const response = await axiosInstance.post("/children-story", {
+        childName: name,
+        age: age,
+        proverb: proverb,
+      });
+
+      // Get the generated text from the response
+      const generatedText = response?.data?.generated_text;
+
+      setStory(generatedText);
+    } catch (error) {
+      console.error("Error generating child stories:", error);
+      toast({
+        title: "Error",
+        description: "Failed to generate email. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+
   };
 
   const handleSaveStory = () => {
     // Placeholder for saving functionality
     toast({
       title: "القصة محفوظة",
-      description:
-        "تم حفظ قصتك بنجاح في سجل الأنشطة الخاص بك.",
+      description: "تم حفظ قصتك بنجاح في سجل الأنشطة الخاص بك.",
     });
   };
 
   const handleExportStory = () => {
-    // Placeholder for export functionality
-    toast({
-      title: "القصة تم تصديرها",
-      description: "تم تصدير قصتك كملف PDF.",
-    });
+    if (story) {
+      downloadPdf(story, "story.pdf");
+      
+      // Placeholder for export functionality
+      toast({
+        title: "القصة تم تصديرها",
+        description: "تم تصدير قصتك كملف PDF.",
+      });
+    }
   };
 
   const handleReset = () => {
@@ -137,7 +163,10 @@ export function ArabicProverbStoriesComponent() {
             </p>
 
             {story && (
-              <div className="p-4 border-2 border-[#1C9AAF] rounded-md bg-[#f0f9fa]" dir="rtl">
+              <div
+                className="p-4 border-2 border-[#1C9AAF] rounded-md bg-[#f0f9fa]"
+                dir="rtl"
+              >
                 <h2 className="text-xl font-semibold mb-2 text-[#20b1c9]">
                   القصة التي تم إنشاؤها:
                 </h2>
@@ -145,7 +174,7 @@ export function ArabicProverbStoriesComponent() {
               </div>
             )}
           </CardContent>
-          <CardFooter className="flex justify-between">
+          <CardFooter className="flex justify-center gap-4 md:justify-between md:gap-0 flex-wrap">
             <Button
               onClick={handleSaveStory}
               disabled={!story}

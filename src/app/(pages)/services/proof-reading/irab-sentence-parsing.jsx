@@ -13,32 +13,39 @@ import {
 import { Loader2, Save, FileDown, RefreshCw } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 import LoadingOverlay from "@/components/shared/LoadingOverlay";
+import useDownloadPdf from "@/hooks/useDownloadPdf";
+import axiosInstance from "@/lib/axios";
 
 export function IrabSentenceParsingComponent() {
   const [inputText, setInputText] = useState("");
   const [parsingResult, setParsingResult] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const { downloadPdf } = useDownloadPdf();
+
 
   const handleParseSentence = async () => {
     setIsLoading(true);
-    // Placeholder for API call
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    setParsingResult(`
-      Parsing result for: "${inputText}"
-      
-      1. Word: [First word]
-         - Part of Speech: [e.g., Noun, Verb, etc.]
-         - Case: [e.g., Nominative, Accusative, etc.]
-         - Additional Information: [Any other relevant grammatical details]
 
-      2. Word: [Second word]
-         - Part of Speech: [e.g., Noun, Verb, etc.]
-         - Case: [e.g., Nominative, Accusative, etc.]
-         - Additional Information: [Any other relevant grammatical details]
+    try {
+      // Make the API request with axiosInstance
+      const response = await axiosInstance.post("/proofread", {
+        content: inputText,
+      });
 
-      ... [Continue for each word in the sentence]
-    `);
-    setIsLoading(false);
+      // Get the generated text from the response
+      const generatedText = response?.data?.generated_text;
+
+      setParsingResult(generatedText);
+    } catch (error) {
+      console.error("Error generating child stories:", error);
+      toast({
+        title: "Error",
+        description: "Failed to generate email. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleSaveResult = () => {
@@ -51,11 +58,15 @@ export function IrabSentenceParsingComponent() {
   };
 
   const handleExportResult = () => {
-    // Placeholder for export functionality
-    toast({
-      title: "Parsing Result Exported",
-      description: "Your parsing result has been exported as a PDF document.",
-    });
+    if (parsingResult) {
+      downloadPdf(parsingResult, "parsingResult.pdf");
+      
+      // Placeholder for export functionality
+      toast({
+        title: "القصة تم تصديرها",
+        description: "تم تصدير قصتك كملف PDF.",
+      });
+    }
   };
 
   const handleReset = () => {
@@ -108,7 +119,7 @@ export function IrabSentenceParsingComponent() {
               </div>
             )}
           </CardContent>
-          <CardFooter className="flex justify-between">
+          <CardFooter className="flex justify-center gap-4 md:justify-between md:gap-0 flex-wrap">
             <Button
               onClick={handleSaveResult}
               disabled={!parsingResult}
