@@ -95,7 +95,7 @@ export function TashkeelVowelizationComponent() {
           />
 
           {/* file upload section  */}
-          <div className="flex items-center space-x-4" dir="rtl">
+          {/* <div className="flex items-center space-x-4" dir="rtl">
             <Button
               onClick={() => document.getElementById("fileInput")?.click()}
               className="bg-[#1C9AAF] hover:bg-[#20b1c9] text-white ml-2"
@@ -114,7 +114,7 @@ export function TashkeelVowelizationComponent() {
                 ? file.name
                 : "قم بتحميل المستند الخاص بك بتنسيق Word أو PDF لتشكيل محتواه."}
             </span>
-          </div>
+          </div> */}
 
           {/* submission section  */}
           <Button

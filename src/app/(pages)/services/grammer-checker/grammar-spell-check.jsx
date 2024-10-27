@@ -80,12 +80,6 @@ export function GrammarSpellCheckComponent() {
   const handleExportResult = () => {
     if (checkedText) {
       downloadPdf(checkedText, "checkedText.pdf");
-
-      // Placeholder for export functionality
-      toast({
-        title: "القصة تم تصديرها",
-        description: "تم تصدير قصتك كملف PDF.",
-      });
     }
   };
 

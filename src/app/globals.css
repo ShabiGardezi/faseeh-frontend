@@ -79,3 +79,27 @@
 .custom_font {
   font-family: "Inter", sans-serif !important;
 }
+
+
+
+/* Webkit-based browsers (Chrome, Safari) */
+::-webkit-scrollbar {
+  width: 8px !important;
+  height: 6px !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #8f93ac !important;
+  border-radius: 84px !important;
+  height: 10px !important;
+  cursor: pointer !important;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #eeeff3 !important;
+  border-radius: 84px !important;
+}
+
+/* Firefox */
+scrollbar-width: thin !important;
+scrollbar-color: #8866 transparent !important;

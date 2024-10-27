@@ -67,7 +67,6 @@ export function ArabicProverbStoriesComponent() {
     } finally {
       setIsLoading(false);
     }
-
   };
 
   const handleSaveStory = () => {
@@ -81,7 +80,7 @@ export function ArabicProverbStoriesComponent() {
   const handleExportStory = () => {
     if (story) {
       downloadPdf(story, "story.pdf");
-      
+
       // Placeholder for export functionality
       toast({
         title: "القصة تم تصديرها",
@@ -123,9 +122,24 @@ export function ArabicProverbStoriesComponent() {
               <Label htmlFor="age">عمر الطفل</Label>
               <Input
                 id="age"
+                type="number"
                 placeholder="أدخل عمر الطفل"
                 value={age}
-                onChange={(e) => setAge(e.target.value)}
+                min={1}
+                max={18}
+                onChange={(e) => {
+                  const value = parseInt(e.target.value, 10);
+                  if (value >= 1 && value <= 18) {
+                    setAge(value);
+                  } else if (!e.target.value) {
+                    setAge(""); // Allow empty input to clear the field
+                    toast({
+                      title: "خطأ",
+                      description: "يرجى إدخال عمر صالح.",
+                      variant: "error",
+                    });
+                  }
+                }}
                 className="border-[#1C9AAF] focus:ring-[#20b1c9]"
               />
             </div>

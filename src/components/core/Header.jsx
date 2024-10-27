@@ -2,11 +2,12 @@ import {
   Zap,
   MessageCircleQuestion,
   Mails,
-  Library,
   ClipboardCheck,
   NotebookPen,
   BookOpenText,
   Baby,
+  History,
+  Store,
 } from "lucide-react";
 import { Navbar } from "../ui/navbar";
 
@@ -74,9 +75,14 @@ const menu = [
     ],
   },
   {
-    name: "من نحن",
+    name: "معلومات عنا",
     href: "/about-us",
-    icon: <Library className="h-4 w-4 ml-1" />,
+    icon: <Store className="h-4 w-4 ml-1" />,
+  },
+  {
+    name: "تاريخ النشاط",
+    href: "/me",
+    icon: <History className="h-4 w-4 ml-1" />,
   },
 ];
 

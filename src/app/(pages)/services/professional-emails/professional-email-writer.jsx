@@ -368,7 +368,7 @@ export function ProfessionalEmailWriterComponent() {
         </AnimatePresence>
 
         {/* activity log section  */}
-        {!generatedEmail && (
+        {/* {!generatedEmail && (
           <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -452,7 +452,7 @@ export function ProfessionalEmailWriterComponent() {
               </CardContent>
             </Card>
           </motion.div>
-        )}
+        )} */}
       </motion.div>
     </>
   );
