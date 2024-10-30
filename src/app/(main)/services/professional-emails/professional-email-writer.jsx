@@ -100,7 +100,7 @@ export function ProfessionalEmailWriterComponent() {
 
     try {
       // Make the API request with axiosInstance
-      const response = await axiosInstance.post("/professional-email", {
+      const response = await axiosInstance.post("/watson/professional-email", {
         purpose: values.purpose,
         recipient: values.recipient,
         tone: values.tone,

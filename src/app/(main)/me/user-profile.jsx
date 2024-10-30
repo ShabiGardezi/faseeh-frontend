@@ -25,13 +25,14 @@ import { FileDown, Trash2, Eye } from "lucide-react";
 import useDownloadPdf from "@/hooks/useDownloadPdf";
 import jsPDF from "jspdf";
 import arabicFont from "@/app/fonts/arabicFont";
+import { useUser } from "@/contexts/UserContext";
 
 // Mock user data
-const user = {
-  name: "جون دو",
-  email: "john.doe@example.com",
-  profilePic: "/placeholder.svg?height=100&width=100",
-};
+// const user = {
+//   name: "جون دو",
+//   email: "john.doe@example.com",
+//   profilePic: "/placeholder.svg?height=100&width=100",
+// };
 
 // Mock activity log data
 const initialActivityLog = [
@@ -59,6 +60,7 @@ export default function UserProfile() {
   const [activityLog, setActivityLog] = useState(initialActivityLog);
   const [selectedActivity, setSelectedActivity] = useState(null);
   const { downloadPdf } = useDownloadPdf();
+  const {user} = useUser()
 
   const handleDownload = (id) => {
 
@@ -99,17 +101,17 @@ export default function UserProfile() {
         </CardHeader>
         <CardContent className="flex items-center space-x-8">
           <Avatar className="h-24 w-24">
-            <AvatarImage src={user.profilePic} alt={user.name} />
+            <AvatarImage src={user?.profilePic} alt={user?.name} />
             <AvatarFallback>
-              {user.name
+              {user?.name
                 .split(" ")
                 .map((n) => n[0])
                 .join("")}
             </AvatarFallback>
           </Avatar>
           <div className="pr-3">
-            <h2 className="text-2xl font-semibold">{user.name}</h2>
-            <p className="text-gray-600">{user.email}</p>
+            <h2 className="text-2xl font-semibold">{user?.name}</h2>
+            <p className="text-gray-600">{user?.email}</p>
           </div>
         </CardContent>
       </Card>

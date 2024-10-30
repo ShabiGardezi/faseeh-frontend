@@ -2,17 +2,25 @@
 
 import { useState, useRef } from "react";
 
-import {
-  Menu,
-  X,
-  ChevronDown,
-} from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useUser } from "@/contexts/UserContext";
 
-export function Navbar({ menu=[] }) {
+export function Navbar({ menu = [] }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const router = useRouter();
+  const { isAuthenticated, removeUserData } = useUser();
+
+  const handleLogout = () => {
+    removeUserData();
+
+    router.push("/login");
+  };
+
+  const handleLogin = () => {
+    router.push("/login");
+  };
 
   return (
     <nav className=" text-[#1C9AAF] transition-all">
@@ -33,12 +41,21 @@ export function Navbar({ menu=[] }) {
           {/* menu items for large screen  */}
           <div className="hidden md:block" dir="rtl">
             <div className="ml-10 flex items-baseline space-x-4 rounded-lg">
-              <button
-                onClick={() => router.push("/contact-us")}
-                className="ml-8 px-4 py-2 rounded-md text-sm font-medium text-white bg-[#20b1c9] hover:bg-[#1C9AAF] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#005bea]"
-              >
-                تواصل معنا
-              </button>
+              {isAuthenticated ? (
+                <button
+                  onClick={handleLogout}
+                  className="ml-8 px-4 py-2 rounded-md text-sm font-medium text-white bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#005bea]"
+                >
+                  Logout
+                </button>
+              ) : (
+                <button
+                  onClick={handleLogin}
+                  className="ml-8 px-4 py-2 rounded-md text-sm font-medium text-white bg-[#20b1c9] hover:bg-[#1C9AAF] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#005bea]"
+                >
+                  Signin
+                </button>
+              )}
               {menu.map((item) => (
                 <Dropdown key={item.name} item={item} />
               ))}
@@ -67,9 +84,21 @@ export function Navbar({ menu=[] }) {
         <div className="md:hidden">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             <MobileMenu menu={menu} />
-            <button className="mt-4 w-full px-4 py-2 rounded-md text-sm font-medium text-white bg-[#20b1c9] hover:bg-[#1C9AAF] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#005bea]">
-              تواصل معنا
-            </button>
+            {isAuthenticated ? (
+              <button
+                onClick={handleLogout}
+                className="mt-4 w-full px-4 py-2 rounded-md text-sm font-medium text-white bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#005bea]"
+              >
+                Logout
+              </button>
+            ) : (
+              <button
+                onClick={handleLogin}
+                className="mt-4 w-full px-4 py-2 rounded-md text-sm font-medium text-white bg-[#20b1c9] hover:bg-[#1C9AAF] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#005bea]"
+              >
+                Signin
+              </button>
+            )}
           </div>
         </div>
       )}

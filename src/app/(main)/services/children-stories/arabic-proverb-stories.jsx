@@ -47,7 +47,7 @@ export function ArabicProverbStoriesComponent() {
 
     try {
       // Make the API request with axiosInstance
-      const response = await axiosInstance.post("/children-story", {
+      const response = await axiosInstance.post("/watson/children-story", {
         childName: name,
         age: age,
         proverb: proverb,

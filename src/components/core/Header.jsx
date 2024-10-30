@@ -8,6 +8,7 @@ import {
   Baby,
   History,
   Store,
+  CircleUserRound,
 } from "lucide-react";
 import { Navbar } from "../ui/navbar";
 
@@ -78,6 +79,11 @@ const menu = [
     name: "معلومات عنا",
     href: "/about-us",
     icon: <Store className="h-4 w-4 ml-1" />,
+  },
+  {
+    name: "تواصل معنا",
+    href: "/contact-us",
+    icon: <CircleUserRound className="h-4 w-4 ml-1" />,
   },
   {
     name: "تاريخ النشاط",

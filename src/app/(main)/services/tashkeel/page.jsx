@@ -3,7 +3,7 @@ import { TashkeelVowelizationComponent } from "./tashkeel-vowelization";
 
 function TaskeelServicePage() {
   return (
-    <div className="pt-[10%]">
+    <div className="pt-[25%] md:pt-[10%]">
       <TashkeelVowelizationComponent />
     </div>
   );

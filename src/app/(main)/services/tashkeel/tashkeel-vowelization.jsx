@@ -40,7 +40,7 @@ export function TashkeelVowelizationComponent() {
 
     try {
       // Make the API request with axiosInstance
-      const response = await axiosInstance.post("/tashkeel", {
+      const response = await axiosInstance.post("/watson/tashkeel", {
         content: inputText,
       });
 

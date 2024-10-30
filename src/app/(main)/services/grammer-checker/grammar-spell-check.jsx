@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import {
@@ -10,32 +10,52 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Loader2, Save, FileDown, RefreshCw } from "lucide-react";
+import { Loader2, Upload, Save, FileDown, RefreshCw } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 import LoadingOverlay from "@/components/shared/LoadingOverlay";
 import useDownloadPdf from "@/hooks/useDownloadPdf";
+import useFileTextExtractor from "@/hooks/useFileTextExtractor";
 import axiosInstance from "@/lib/axios";
 
-export function IrabSentenceParsingComponent() {
+export function GrammarSpellCheckComponent() {
   const [inputText, setInputText] = useState("");
-  const [parsingResult, setParsingResult] = useState("");
+  const [file, setFile] = useState(null);
+  const [checkedText, setCheckedText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { downloadPdf } = useDownloadPdf();
+  const { extractTextFromFile, extractedText, loading, error } =
+    useFileTextExtractor();
 
+  const handleFileUpload = async (event) => {
+    const uploadedFile = event.target.files?.[0];
+    if (uploadedFile) {
+      setFile(uploadedFile);
 
-  const handleParseSentence = async () => {
+      // Extract text from the uploaded file
+      await extractTextFromFile(uploadedFile);
+    }
+  };
+
+  // Set the extracted text to inputText when it's updated
+  useEffect(() => {
+    if (extractedText) {
+      setInputText(extractedText);
+    }
+  }, [extractedText]);
+
+  const handleCheckText = async () => {
     setIsLoading(true);
 
     try {
       // Make the API request with axiosInstance
-      const response = await axiosInstance.post("/proofread", {
+      const response = await axiosInstance.post("/watson/grammatical-analysis", {
         content: inputText,
       });
 
       // Get the generated text from the response
       const generatedText = response?.data?.generated_text;
 
-      setParsingResult(generatedText);
+      setCheckedText(generatedText);
     } catch (error) {
       console.error("Error generating child stories:", error);
       toast({
@@ -51,27 +71,22 @@ export function IrabSentenceParsingComponent() {
   const handleSaveResult = () => {
     // Placeholder for saving functionality
     toast({
-      title: "Parsing Result Saved",
+      title: "Result Saved",
       description:
-        "Your parsing result has been successfully saved in your activity log.",
+        "Your checked text has been successfully saved in your activity log.",
     });
   };
 
   const handleExportResult = () => {
-    if (parsingResult) {
-      downloadPdf(parsingResult, "parsingResult.pdf");
-      
-      // Placeholder for export functionality
-      toast({
-        title: "القصة تم تصديرها",
-        description: "تم تصدير قصتك كملف PDF.",
-      });
+    if (checkedText) {
+      downloadPdf(checkedText, "checkedText.pdf");
     }
   };
 
   const handleReset = () => {
     setInputText("");
-    setParsingResult("");
+    setFile(null);
+    setCheckedText("");
   };
 
   return (
@@ -82,54 +97,78 @@ export function IrabSentenceParsingComponent() {
         <Card className="max-w-4xl mx-auto">
           <CardHeader>
             <CardTitle className="text-3xl font-bold text-[#20b1c9] text-center my-5">
-              الإعراب
+              خدمة التدقيق النحوي والإملائي
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
             <Textarea
-              placeholder="أدخل الجملة التي تريد إعرابها هنا."
+              placeholder="أدخل النص الذي تريد التحقق منه هنا."
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
-              className="w-full h-32 p-4 border-2 border-[#1C9AAF] rounded-md focus:outline-none focus:ring-2 focus:ring-[#20b1c9]"
+              className="w-full h-40 p-4 border-2 border-[#1C9AAF] rounded-md focus:outline-none focus:ring-2 focus:ring-[#20b1c9]"
               dir="rtl"
             />
+
+            <div className="flex items-center space-x-4" dir="rtl">
+              <Button
+                onClick={() => document.getElementById("fileInput")?.click()}
+                className="bg-[#1C9AAF] hover:bg-[#20b1c9] text-white ml-3"
+              >
+                <Upload className="mr-2 h-4 w-4" /> تحميل المستند
+              </Button>
+              <input
+                id="fileInput"
+                type="file"
+                accept=".doc,.docx,.pdf"
+                onChange={handleFileUpload}
+                className="hidden"
+                dir="rtl"
+              />
+              <span className="text-sm text-gray-600">
+                {file
+                  ? file.name
+                  : "قم بتحميل المستند الخاص بك بتنسيق Word أو PDF لإجراء التدقيق النحوي والإملائي."}
+              </span>
+            </div>
+
             <Button
-              onClick={handleParseSentence}
-              disabled={isLoading || !inputText}
+              onClick={handleCheckText}
+              disabled={isLoading || (!inputText && !file)}
               className="w-full bg-[#20b1c9] hover:bg-[#1C9AAF] text-white"
             >
               {isLoading ? (
                 <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" /> الإعراب
-                  Sentence...
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" /> جارٍ
+                  التحقق...
                 </>
               ) : (
-                "إعراب الجملة"
+                "تحقق من النص"
               )}
             </Button>
 
-            {parsingResult && (
-              <div className="p-4 border-2 border-[#1C9AAF] rounded-md bg-[#f0f9fa]" dir="rtl">
+            {checkedText && (
+              <div
+                className="p-4 border-2 border-[#1C9AAF] rounded-md bg-[#f0f9fa]"
+                dir="rtl"
+              >
                 <h2 className="text-xl font-semibold mb-2 text-[#20b1c9]">
-                  نتيجة الإعراب:
+                  نتائج التحقق:
                 </h2>
-                <pre className="whitespace-pre-wrap text-sm">
-                  {parsingResult}
-                </pre>
+                <pre className="whitespace-pre-wrap text-sm">{checkedText}</pre>
               </div>
             )}
           </CardContent>
           <CardFooter className="flex justify-center gap-4 md:justify-between md:gap-0 flex-wrap">
             <Button
               onClick={handleSaveResult}
-              disabled={!parsingResult}
+              disabled={!checkedText}
               className="bg-[#1C9AAF] hover:bg-[#20b1c9] text-white"
             >
               <Save className="mr-2 h-4 w-4" /> حفظ النتيجة
             </Button>
             <Button
               onClick={handleExportResult}
-              disabled={!parsingResult}
+              disabled={!checkedText}
               className="bg-[#1C9AAF] hover:bg-[#20b1c9] text-white"
             >
               <FileDown className="mr-2 h-4 w-4" /> تصدير النتائج

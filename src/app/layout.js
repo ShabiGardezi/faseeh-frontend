@@ -1,8 +1,8 @@
 import localFont from "next/font/local";
 import "./globals.css";
-import Footer from "@/components/core/Footer";
-import Header from "@/components/core/Header";
-import { Toaster } from "@/components/ui/toaster";
+import { metadata } from "./metadata";
+import ClientLayout from "./ClientLayout";
+import AppProvider from "@/contexts/AppProvider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -15,10 +15,7 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
-export const metadata = {
-  title: "فصيح",
-  description: "Digitalize your Business",
-};
+export { metadata };
 
 export default function RootLayout({ children }) {
   return (
@@ -26,10 +23,9 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}
       >
-        <Header />
-        <div className="w-full h-full">{children}</div>
-        <Toaster />
-        <Footer />
+        <AppProvider>
+          <ClientLayout>{children}</ClientLayout>
+        </AppProvider>
       </body>
     </html>
   );

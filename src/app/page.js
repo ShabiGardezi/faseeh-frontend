@@ -1,5 +1,6 @@
 "use client";
-import HomePage from "./(pages)/home/page";
+// import HomePage from "./(pages)/(main)/home/page";
+import HomePage from "./(main)/home/page";
 import AOS from "aos";
 import "aos/dist/aos.css"; // Import the AOS CSS
 import { useEffect } from "react";
