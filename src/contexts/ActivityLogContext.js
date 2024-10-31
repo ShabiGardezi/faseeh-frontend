@@ -55,7 +55,7 @@ export const ActivityLogProvider = ({ children }) => {
 
   return (
     <ActivityLogContext.Provider
-      value={{ activityLogs, addActivityLog, removeActivityLog }}
+      value={{ fetchActivityLogs, activityLogs, addActivityLog, removeActivityLog }}
     >
       {children}
     </ActivityLogContext.Provider>

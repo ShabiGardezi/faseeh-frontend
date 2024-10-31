@@ -15,6 +15,9 @@ import { toast } from "@/hooks/use-toast";
 import LoadingOverlay from "@/components/shared/LoadingOverlay";
 import axiosInstance from "@/lib/axios";
 import useDownloadPdf from "@/hooks/useDownloadPdf";
+import { useUser } from "@/contexts/UserContext";
+import { useActivityLog } from "@/contexts/ActivityLogContext";
+import SignInModal from "@/components/shared/SignInModal";
 
 export function MarketingTextGeneratorComponent() {
   const [product, setProduct] = useState("");
@@ -25,7 +28,18 @@ export function MarketingTextGeneratorComponent() {
   const [marketingText, setMarketingText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { downloadPdf } = useDownloadPdf();
+  const { isAuthenticated, user } = useUser();
+  const { addActivityLog } = useActivityLog();
+  const [showSignInModal, setShowSignInModal] = useState(false);
 
+  const handleSignIn = () => {
+    setShowSignInModal(false);
+    router.push("/login");
+  };
+
+  const handleCloseSignInModal = () => {
+    setShowSignInModal(false);
+  };
 
   const handleAddBenefit = () => {
     if (currentBenefit.trim()) {
@@ -67,22 +81,32 @@ export function MarketingTextGeneratorComponent() {
   };
 
   const handleSaveText = () => {
-    // Placeholder for saving functionality
+    if (!isAuthenticated) {
+      setShowSignInModal(true);
+      return;
+    }
+
+    addActivityLog({
+      input: product,
+      output: marketingText,
+      userId: user?.id,
+      serviceType: "MARKETING_TEXT",
+    });
     toast({
-      title: "تم حفظ النص التسويقي",
-      description: "تم حفظ النص التسويقي بنجاح في سجل نشاطك.",
+      title: "تم حفظ النتيجة",
+      description: "تم حفظ النص الذي قمت بفحصه بنجاح في سجل الأنشطة الخاص بك.",
     });
   };
 
   const handleExportText = () => {
     if (marketingText) {
       downloadPdf(marketingText, "story.pdf");
-    // Placeholder for export functionality
-    toast({
-      title: "تم تصدير النص التسويقي",
-      description: "تم تصدير النص التسويقي كوثيقة PDF.",
-    });
-  }
+      // Placeholder for export functionality
+      toast({
+        title: "تم تصدير النص التسويقي",
+        description: "تم تصدير النص التسويقي كوثيقة PDF.",
+      });
+    }
   };
 
   const handleReset = () => {
@@ -97,6 +121,12 @@ export function MarketingTextGeneratorComponent() {
   return (
     <>
       <LoadingOverlay isLoading={isLoading} />
+
+      <SignInModal
+        open={showSignInModal}
+        onSignIn={handleSignIn}
+        onClose={handleCloseSignInModal}
+      />
 
       <div className="min-h-screen bg-white p-8">
         <Card className="max-w-4xl mx-auto">
@@ -152,10 +182,10 @@ export function MarketingTextGeneratorComponent() {
                     <button
                       onClick={() => handleRemoveBenefit(index)}
                       className="ml-2 text-[#1C9AAF] hover:text-[#20b1c9]"
-                      >
+                    >
                       <X className="h-4 w-4" />
                     </button>
-                      <span>{benefit}</span>
+                    <span>{benefit}</span>
                   </div>
                 ))}
               </div>

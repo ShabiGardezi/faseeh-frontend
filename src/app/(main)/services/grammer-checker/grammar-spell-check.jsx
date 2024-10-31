@@ -16,6 +16,9 @@ import LoadingOverlay from "@/components/shared/LoadingOverlay";
 import useDownloadPdf from "@/hooks/useDownloadPdf";
 import useFileTextExtractor from "@/hooks/useFileTextExtractor";
 import axiosInstance from "@/lib/axios";
+import { useUser } from "@/contexts/UserContext";
+import { useActivityLog } from "@/contexts/ActivityLogContext";
+import SignInModal from "@/components/shared/SignInModal";
 
 export function GrammarSpellCheckComponent() {
   const [inputText, setInputText] = useState("");
@@ -25,6 +28,18 @@ export function GrammarSpellCheckComponent() {
   const { downloadPdf } = useDownloadPdf();
   const { extractTextFromFile, extractedText, loading, error } =
     useFileTextExtractor();
+  const { isAuthenticated, user } = useUser();
+  const { addActivityLog } = useActivityLog();
+  const [showSignInModal, setShowSignInModal] = useState(false);
+
+  const handleSignIn = () => {
+    setShowSignInModal(false);
+    router.push("/login");
+  };
+
+  const handleCloseSignInModal = () => {
+    setShowSignInModal(false);
+  };
 
   const handleFileUpload = async (event) => {
     const uploadedFile = event.target.files?.[0];
@@ -48,9 +63,12 @@ export function GrammarSpellCheckComponent() {
 
     try {
       // Make the API request with axiosInstance
-      const response = await axiosInstance.post("/watson/grammatical-analysis", {
-        content: inputText,
-      });
+      const response = await axiosInstance.post(
+        "/watson/grammatical-analysis",
+        {
+          content: inputText,
+        }
+      );
 
       // Get the generated text from the response
       const generatedText = response?.data?.generated_text;
@@ -69,11 +87,20 @@ export function GrammarSpellCheckComponent() {
   };
 
   const handleSaveResult = () => {
-    // Placeholder for saving functionality
+    if (!isAuthenticated) {
+      setShowSignInModal(true);
+      return;
+    }
+
+    addActivityLog({
+      input: inputText,
+      output: checkedText,
+      userId: user?.id,
+      serviceType: "GRAMMAR_ANALYSIS",
+    });
     toast({
-      title: "Result Saved",
-      description:
-        "Your checked text has been successfully saved in your activity log.",
+      title: "تم حفظ النتيجة",
+      description: "تم حفظ النص الذي قمت بفحصه بنجاح في سجل الأنشطة الخاص بك.",
     });
   };
 
@@ -92,6 +119,12 @@ export function GrammarSpellCheckComponent() {
   return (
     <>
       <LoadingOverlay isLoading={isLoading} />
+
+      <SignInModal
+        open={showSignInModal}
+        onSignIn={handleSignIn}
+        onClose={handleCloseSignInModal}
+      />
 
       <div className="min-h-screen bg-white p-8">
         <Card className="max-w-4xl mx-auto">

@@ -23,6 +23,9 @@ import { toast } from "@/hooks/use-toast";
 import LoadingOverlay from "@/components/shared/LoadingOverlay";
 import axiosInstance from "@/lib/axios";
 import useDownloadPdf from "@/hooks/useDownloadPdf";
+import { useUser } from "@/contexts/UserContext";
+import { useActivityLog } from "@/contexts/ActivityLogContext";
+import SignInModal from "@/components/shared/SignInModal";
 
 const proverbs = [
   "من طلب العلا سهر الليالي",
@@ -39,8 +42,19 @@ export function ArabicProverbStoriesComponent() {
   const [proverb, setProverb] = useState("");
   const [story, setStory] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
   const { downloadPdf } = useDownloadPdf();
+  const { isAuthenticated, user } = useUser();
+  const { addActivityLog } = useActivityLog();
+  const [showSignInModal, setShowSignInModal] = useState(false);
+
+  const handleSignIn = () => {
+    setShowSignInModal(false);
+    router.push("/login");
+  };
+
+  const handleCloseSignInModal = () => {
+    setShowSignInModal(false);
+  };
 
   const handleGenerateStory = async () => {
     setIsLoading(true);
@@ -70,7 +84,18 @@ export function ArabicProverbStoriesComponent() {
   };
 
   const handleSaveStory = () => {
-    // Placeholder for saving functionality
+    if (!isAuthenticated) {
+      setShowSignInModal(true);
+      return;
+    }
+
+    addActivityLog({
+      input: proverb,
+      output: story,
+      userId: user?.id,
+      serviceType: "CHILDREN_STORY",
+    });
+
     toast({
       title: "القصة محفوظة",
       description: "تم حفظ قصتك بنجاح في سجل الأنشطة الخاص بك.",
@@ -99,6 +124,12 @@ export function ArabicProverbStoriesComponent() {
   return (
     <>
       <LoadingOverlay isLoading={isLoading} />
+
+      <SignInModal
+        open={showSignInModal}
+        onSignIn={handleSignIn}
+        onClose={handleCloseSignInModal}
+      />
 
       <div className="min-h-screen bg-white p-8">
         <Card className="max-w-4xl mx-auto">

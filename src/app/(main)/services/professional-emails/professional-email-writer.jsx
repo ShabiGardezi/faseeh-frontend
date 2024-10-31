@@ -51,6 +51,9 @@ import { jsPDF } from "jspdf";
 import axiosInstance from "@/lib/axios";
 import LoadingOverlay from "@/components/shared/LoadingOverlay";
 import useDownloadPdf from "@/hooks/useDownloadPdf";
+import { useUser } from "@/contexts/UserContext";
+import { useActivityLog } from "@/contexts/ActivityLogContext";
+import SignInModal from "@/components/shared/SignInModal";
 
 const formSchema = z.object({
   purpose: z
@@ -83,6 +86,8 @@ export function ProfessionalEmailWriterComponent() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [isEmailSaved, setIsEmailSaved] = useState(false);
   const { downloadPdf } = useDownloadPdf();
+  const { isAuthenticated, user } = useUser();
+  const { addActivityLog } = useActivityLog();
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -94,6 +99,17 @@ export function ProfessionalEmailWriterComponent() {
       cta: "",
     },
   });
+
+  const [showSignInModal, setShowSignInModal] = useState(false);
+
+  const handleSignIn = () => {
+    setShowSignInModal(false);
+    router.push("/login");
+  };
+
+  const handleCloseSignInModal = () => {
+    setShowSignInModal(false);
+  };
 
   const handleGenerateEmail = async (values) => {
     setIsGenerating(true);
@@ -126,27 +142,24 @@ export function ProfessionalEmailWriterComponent() {
   };
 
   const handleSaveEmail = () => {
-    if (generatedEmail) {
-      const newLogEntry = {
-        id: Date.now(),
-        recipient: form.getValues("recipient"),
-        purpose: form.getValues("purpose"),
-        content: generatedEmail,
-        tone: form.getValues("tone"),
-      };
-      setActivityLog((prevLog) => [newLogEntry, ...prevLog]);
-      setIsEmailSaved(true); // Disable the button after saving once
-      toast({
-        title: "Email Saved",
-        description: "Email saved successfully in your activity log.",
-      });
-    } else {
-      toast({
-        title: "Error",
-        description: "Please generate an email before saving.",
-        variant: "destructive",
-      });
+    if (!isAuthenticated) {
+      setShowSignInModal(true);
+      return;
     }
+
+    // Get the purpose value from the form
+    const purpose = form.getValues("purpose");
+
+    addActivityLog({
+      input: purpose,
+      output: generatedEmail,
+      userId: user?.id,
+      serviceType: "PROFESSIONAL_EMAIL",
+    });
+    toast({
+      title: "تم حفظ النتيجة",
+      description: "تم حفظ النص الذي قمت بفحصه بنجاح في سجل الأنشطة الخاص بك.",
+    });
   };
 
   const handleExportEmail = (email) => {
@@ -183,6 +196,12 @@ export function ProfessionalEmailWriterComponent() {
   return (
     <>
       <LoadingOverlay isLoading={isGenerating} />
+
+      <SignInModal
+        open={showSignInModal}
+        onSignIn={handleSignIn}
+        onClose={handleCloseSignInModal}
+      />
 
       <motion.div
         initial={{ opacity: 0 }}

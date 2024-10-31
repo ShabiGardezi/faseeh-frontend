@@ -1,31 +1,39 @@
-'use client';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import { Eye, EyeOff } from 'lucide-react';
+"use client";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { Eye, EyeOff } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
-import axiosInstance from '@/lib/axios';
-import { useRouter } from 'next/navigation';
-import GoogleLoginButton from '@/components/core/GoogleLoginButton';
-import { useUser } from '@/contexts/UserContext';
-
+import axiosInstance from "@/lib/axios";
+import { useRouter } from "next/navigation";
+import GoogleLoginButton from "@/components/core/GoogleLoginButton";
+import { useUser } from "@/contexts/UserContext";
+import Link from "next/link";
 
 // Validation schema
-const schema = yup.object({
-  identifier: yup.string().required('Username or Email is required'),
-  password: yup.string().required('Password is required').min(6, 'Password must be at least 6 characters'),
-}).required();
+const schema = yup
+  .object({
+    identifier: yup.string().required("Username or Email is required"),
+    password: yup
+      .string()
+      .required("Password is required")
+      .min(6, "Password must be at least 6 characters"),
+  })
+  .required();
 
 export function LoginPageComponent() {
   const [showPassword, setShowPassword] = useState(false);
-  const { register, handleSubmit, formState: { errors } } = useForm({
-    resolver: yupResolver(schema)
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
   });
 
-  const router = useRouter()
-  const {saveUserData} = useUser()
-
+  const router = useRouter();
+  const { saveUserData } = useUser();
 
   const onSubmit = async (data) => {
     console.log(data);
@@ -39,7 +47,7 @@ export function LoginPageComponent() {
       });
 
       if (response.status !== 200) {
-        console.log('error: ' + response.data.message);
+        console.log("error: " + response.data.message);
 
         toast({
           title: response?.data?.message,
@@ -55,11 +63,11 @@ export function LoginPageComponent() {
         variant: "success",
       });
 
-      console.log('user', JSON.stringify(response?.data.user));
+      console.log("user", JSON.stringify(response?.data.user));
 
-      saveUserData(response?.data?.user, response?.data?.token)
+      saveUserData(response?.data?.user, response?.data?.token);
 
-      router.push('/');
+      router.push("/");
     } catch (error) {
       console.error("Error while login:", error);
       toast({
@@ -71,50 +79,79 @@ export function LoginPageComponent() {
   };
 
   return (
-    (<div className="min-h-screen flex items-center justify-center bg-[#20b1c9] bg-opacity-10 py-3">
+    <div className="min-h-screen flex items-center justify-center bg-[#20b1c9] bg-opacity-10 py-3">
       <div className="bg-white ring-1 ring-[#20b1c9] p-8 rounded-lg shadow-lg w-full max-w-md">
         <div className="flex justify-center mb-8">
-          {/* Replace with your actual logo */ }
-          <div
-            className="w-32 h-32 bg-[#20b1c9] rounded-full flex items-center justify-center text-white text-2xl font-bold">
-            LOGO
-          </div>
+          {/* Replace with your actual logo */}
+          <Link href={"/"}>
+            <div className="w-32 h-32 bg-[#20b1c9] rounded-full flex items-center justify-center text-white text-2xl font-bold">
+              LOGO
+            </div>
+          </Link>
         </div>
 
-        <form onSubmit={ handleSubmit(onSubmit) } className="space-y-6">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <div>
-            <label htmlFor="identifier" className="block text-sm font-medium text-gray-700">Email / Username</label>
+            <label
+              htmlFor="identifier"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Email / Username
+            </label>
             <input
-              { ...register('identifier') }
+              {...register("identifier")}
               type="text"
               id="identifier"
               className="bg-transparent mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#20b1c9] focus:border-[#20b1c9]"
-              placeholder="Enter your username or email" />
-            { errors.email && <p className="mt-1 text-sm text-red-600">{ errors.identifier.message }</p> }
+              placeholder="Enter your username or email"
+            />
+            {errors.email && (
+              <p className="mt-1 text-sm text-red-600">
+                {errors.identifier.message}
+              </p>
+            )}
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Password
+            </label>
             <div className="relative">
               <input
-                { ...register('password') }
-                type={ showPassword ? 'text' : 'password' }
+                {...register("password")}
+                type={showPassword ? "text" : "password"}
                 id="password"
                 className="bg-transparent mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#20b1c9] focus:border-[#20b1c9]"
-                placeholder="Enter your password" />
+                placeholder="Enter your password"
+              />
               <button
                 type="button"
-                onClick={ () => setShowPassword(!showPassword) }
-                className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
-                { showPassword ? <EyeOff className="h-5 w-5 text-gray-500" /> : <Eye className="h-5 w-5 text-gray-500" /> }
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5"
+              >
+                {showPassword ? (
+                  <EyeOff className="h-5 w-5 text-gray-500" />
+                ) : (
+                  <Eye className="h-5 w-5 text-gray-500" />
+                )}
               </button>
             </div>
-            { errors.password && <p className="mt-1 text-sm text-red-600">{ errors.password.message }</p> }
+            {errors.password && (
+              <p className="mt-1 text-sm text-red-600">
+                {errors.password.message}
+              </p>
+            )}
           </div>
 
           <div className="flex items-center justify-between">
             <div className="text-sm">
-              <a href="#" className="font-medium text-[#1C9AAF] hover:text-[#20b1c9]">
+              <a
+                href="#"
+                className="font-medium text-[#1C9AAF] hover:text-[#20b1c9]"
+              >
                 Forgot your password?
               </a>
             </div>
@@ -123,7 +160,8 @@ export function LoginPageComponent() {
           <div>
             <button
               type="submit"
-              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#20b1c9] hover:bg-[#1C9AAF] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#20b1c9]">
+              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#20b1c9] hover:bg-[#1C9AAF] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#20b1c9]"
+            >
               Sign in
             </button>
           </div>
@@ -135,7 +173,9 @@ export function LoginPageComponent() {
               <div className="w-full border-t border-gray-300"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-white text-gray-500">Or continue with</span>
+              <span className="px-2 bg-white text-gray-500">
+                Or continue with
+              </span>
             </div>
           </div>
 
@@ -150,18 +190,20 @@ export function LoginPageComponent() {
               Sign in with Google
             </button> */}
 
-            <GoogleLoginButton/>
-
+            <GoogleLoginButton />
           </div>
         </div>
 
         <p className="mt-10 text-center text-sm text-gray-500">
-          Not a member?{ ' ' }
-          <a href="/signup" className="font-medium text-[#1C9AAF] hover:text-[#20b1c9]">
+          Not a member?{" "}
+          <a
+            href="/signup"
+            className="font-medium text-[#1C9AAF] hover:text-[#20b1c9]"
+          >
             Sign up now
           </a>
         </p>
       </div>
-    </div>)
+    </div>
   );
 }

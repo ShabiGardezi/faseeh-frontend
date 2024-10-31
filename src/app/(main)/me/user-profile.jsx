@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -23,52 +23,37 @@ import {
 import { toast } from "@/hooks/use-toast";
 import { FileDown, Trash2, Eye } from "lucide-react";
 import useDownloadPdf from "@/hooks/useDownloadPdf";
-import jsPDF from "jspdf";
-import arabicFont from "@/app/fonts/arabicFont";
 import { useUser } from "@/contexts/UserContext";
+import { useActivityLog } from "@/contexts/ActivityLogContext";
 
-// Mock user data
-// const user = {
-//   name: "جون دو",
-//   email: "john.doe@example.com",
-//   profilePic: "/placeholder.svg?height=100&width=100",
-// };
-
-// Mock activity log data
-const initialActivityLog = [
-  {
-    id: 1,
-    service: "مولد النص التسويقي",
-    date: "2023-05-01",
-    content: "تم إنشاء نص تسويقي للمنتج X",
-  },
-  {
-    id: 2,
-    service: "تدقيق القواعد",
-    date: "2023-05-03",
-    content: "تم تدقيق القواعد لمقال حول تغير المناخ",
-  },
-  {
-    id: 3,
-    service: "إعراب الجملة",
-    date: "2023-05-05",
-    content: "تم إعراب الجملة العربية: الْعِلْمُ نُورٌ",
-  },
-];
+const serviceTypeArabicMap = {
+  TASHKEEL: "التشكيل",
+  PROFESSIONAL_EMAIL: "البريد الإلكتروني المهني",
+  PROOF_READ: "التدقيق اللغوي",
+  CHILDREN_STORY: "قصة للأطفال",
+  GRAMMAR_ANALYSIS: "تحليل النحو",
+  MARKETING_TEXT: "النص التسويقي",
+};
 
 export default function UserProfile() {
-  const [activityLog, setActivityLog] = useState(initialActivityLog);
+  const { user } = useUser();
+  const { fetchActivityLogs, activityLogs, removeActivityLog } = useActivityLog();
+  // const [activityLog, setActivityLog] = useState(activityLogs);
   const [selectedActivity, setSelectedActivity] = useState(null);
   const { downloadPdf } = useDownloadPdf();
-  const {user} = useUser()
+
+  useEffect(()=>{
+    fetchActivityLogs()
+  },[])
 
   const handleDownload = (id) => {
+    console.log("download filename", id);
 
-    console.log('download filename', id)
-    
-    const selectedActivity = initialActivityLog.find(activity => activity.id == id)
-    
-    console.log('download content', selectedActivity?.content)
+    const selectedActivity = initialActivityLog.find(
+      (activity) => activity.id == id
+    );
+
+    console.log("download content", selectedActivity?.content);
     if (selectedActivity) {
       downloadPdf(selectedActivity?.content, selectedActivity?.service);
     }
@@ -83,17 +68,17 @@ export default function UserProfile() {
   };
 
   const handleDelete = (id) => {
-    setActivityLog(activityLog.filter((activity) => activity.id !== id));
+    removeActivityLog(id);
     toast({
       title: "تم حذف النشاط",
-      description: `تمت إزالة النشاط ${id} من سجلك.`,
-      variant: "error",
+      description: `تم حذف السجل بنجاح`,
+      variant: "success",
     });
   };
 
   return (
     <div className="min-h-screen bg-white p-8">
-      <Card className="max-w-4xl mx-auto mb-8" dir="rtl">
+      <Card className="max-w-7xl mx-auto mb-8" dir="rtl">
         <CardHeader>
           <CardTitle className="text-3xl font-bold text-[#20b1c9]">
             الملف الشخصي للمستخدم
@@ -116,7 +101,7 @@ export default function UserProfile() {
         </CardContent>
       </Card>
 
-      <Card className="max-w-4xl mx-auto" dir="rtl">
+      <Card className="max-w-7xl mx-auto" dir="rtl">
         <CardHeader>
           <CardTitle className="text-2xl font-bold text-[#20b1c9]">
             سجل الأنشطة
@@ -128,14 +113,30 @@ export default function UserProfile() {
               <TableRow>
                 <TableHead className="text-right">الخدمة</TableHead>
                 <TableHead className="text-right">التاريخ</TableHead>
+                <TableHead className="text-right">المدخلات</TableHead>
+                <TableHead className="text-right">المخرجات</TableHead>
                 <TableHead className="text-right">الإجراءات</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {activityLog.map((activity) => (
-                <TableRow key={activity.id}>
-                  <TableCell>{activity.service}</TableCell>
-                  <TableCell>{activity.date}</TableCell>
+              {activityLogs.map((activity) => (
+                <TableRow key={activity._id}>
+                  <TableCell>
+                    {serviceTypeArabicMap[activity.serviceType]}
+                  </TableCell>
+                  <TableCell>
+                    {new Date(activity.createdAt).toLocaleDateString("ar-EG")}
+                  </TableCell>
+                  <TableCell>
+                    {activity.input.length > 20
+                      ? `${activity.input.substring(0, 20)}...`
+                      : activity.input}
+                  </TableCell>
+                  <TableCell>
+                    {activity.output.length > 20
+                      ? `${activity.output.substring(0, 20)}...`
+                      : activity.output}
+                  </TableCell>
                   <TableCell>
                     <div className="flex space-x-2">
                       <Sheet>
@@ -152,28 +153,41 @@ export default function UserProfile() {
                         <SheetContent>
                           <SheetHeader className="mt-5">
                             <SheetTitle className="text-right text-[#20b1c9]">
-                              {selectedActivity?.service}
+                              {
+                                serviceTypeArabicMap[
+                                  selectedActivity?.serviceType
+                                ]
+                              }
                             </SheetTitle>
                             <SheetDescription className="text-right">
-                              {selectedActivity?.date}
+                              {new Date(
+                                selectedActivity?.createdAt
+                              ).toLocaleDateString("ar-EG")}
                             </SheetDescription>
                           </SheetHeader>
-                          <div className="mt-8 text-right">
-                            <p>{selectedActivity?.content}</p>
+                          <div className="mt-8 text-justify">
+                            <p>
+                              <strong>المدخلات:</strong>{" "}
+                              {selectedActivity?.input}
+                            </p>
+                            <p className="mt-5">
+                              <strong>المخرجات:</strong>{" "}
+                              {selectedActivity?.output}
+                            </p>
                           </div>
                         </SheetContent>
                       </Sheet>
                       <Button
                         variant="outline"
                         size="icon"
-                        onClick={() => handleDownload(activity.id)}
+                        onClick={() => handleDownload(activity._id)}
                       >
-                        <FileDown className="h-4 w-4 " />
+                        <FileDown className="h-4 w-4" />
                       </Button>
                       <Button
                         variant="outline"
                         size="icon"
-                        onClick={() => handleDelete(activity.id)}
+                        onClick={() => handleDelete(activity._id)}
                       >
                         <Trash2 className="h-4 w-4" />
                       </Button>

@@ -15,13 +15,30 @@ import { toast } from "@/hooks/use-toast";
 import LoadingOverlay from "@/components/shared/LoadingOverlay";
 import useDownloadPdf from "@/hooks/useDownloadPdf";
 import axiosInstance from "@/lib/axios";
+import { useUser } from "@/contexts/UserContext";
+import SignInModal from "@/components/shared/SignInModal";
+import { useRouter } from "next/navigation";
+import { useActivityLog } from "@/contexts/ActivityLogContext";
 
 export function IrabSentenceParsingComponent() {
   const [inputText, setInputText] = useState("");
   const [parsingResult, setParsingResult] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { downloadPdf } = useDownloadPdf();
+  const router = useRouter()
+  const {isAuthenticated, user} = useUser()
+  const {addActivityLog} = useActivityLog()
+  const [showSignInModal, setShowSignInModal] = useState(false);
 
+  const handleSignIn = () => {
+    setShowSignInModal(false);
+    router.push("/login");
+  };
+
+  const handleCloseSignInModal = () => {
+    setShowSignInModal(false);
+  };
+  
 
   const handleParseSentence = async () => {
     setIsLoading(true);
@@ -49,13 +66,28 @@ export function IrabSentenceParsingComponent() {
   };
 
   const handleSaveResult = () => {
-    // Placeholder for saving functionality
+
+    if (!isAuthenticated) {
+      setShowSignInModal(true);
+      return;
+    }
+
+    addActivityLog({
+      input: inputText,
+      output: parsingResult,
+      userId: user?.id,
+      serviceType: 'PROOF_READ'
+    })
+
+
     toast({
       title: "Parsing Result Saved",
       description:
         "Your parsing result has been successfully saved in your activity log.",
     });
   };
+
+  
 
   const handleExportResult = () => {
     if (parsingResult) {
@@ -77,6 +109,12 @@ export function IrabSentenceParsingComponent() {
   return (
     <>
       <LoadingOverlay isLoading={isLoading} />
+
+      <SignInModal
+        open={showSignInModal}
+        onSignIn={handleSignIn}
+        onClose={handleCloseSignInModal}
+      />
 
       <div className="min-h-screen bg-white p-8">
         <Card className="max-w-4xl mx-auto">

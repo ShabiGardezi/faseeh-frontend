@@ -7,6 +7,7 @@ import { Eye, EyeOff } from 'lucide-react';
 import axiosInstance from '@/lib/axios';
 import { useRouter } from 'next/navigation';
 import { toast } from "@/hooks/use-toast";
+import Link from 'next/link';
 
 
 // Validation schema
@@ -74,10 +75,11 @@ export function SignupPageComponent() {
       <div className="bg-white ring-1 ring-[#20b1c9] p-8 rounded-lg shadow-lg w-full max-w-md">
         <div className="flex justify-center mb-8">
           {/* Replace with your actual logo */ }
-          <div
-            className="w-32 h-32 bg-[#20b1c9] rounded-full flex items-center justify-center text-white text-2xl font-bold">
-            LOGO
-          </div>
+          <Link href={"/"}>
+            <div className="w-32 h-32 bg-[#20b1c9] rounded-full flex items-center justify-center text-white text-2xl font-bold">
+              LOGO
+            </div>
+          </Link>
         </div>
 
         <form onSubmit={ handleSubmit(onSubmit) } className="space-y-6">
