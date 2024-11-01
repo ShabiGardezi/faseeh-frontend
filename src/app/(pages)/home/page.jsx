@@ -9,9 +9,9 @@ function HomePage() {
     <>
 
     <HomePageComponent/>
+      <AboutUsPage showHeroSection={false} /> 
     {/* <FuturisticHome/> */}
-      {/* <HeroSection />
-      <AboutUsPage showHeroSection={false} /> */}
+      {/* <HeroSection />*/}
       {/* <EventsPage showHeroSection={false} /> */}
     </>
   );
