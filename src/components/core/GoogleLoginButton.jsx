@@ -14,7 +14,7 @@ function GoogleLoginButton() {
 
     try {
       // Send the token to the backend for verification
-      const res = await axiosInstance.post("/api/auth/google-login", {
+      const res = await axiosInstance.post("/auth/google-login", {
         token: idToken,
       });
 
@@ -27,7 +27,6 @@ function GoogleLoginButton() {
         // Save user data and token in the context
         saveUserData(user, token);
 
-        // router.push('/')
 
         toast({
           title: "Success",

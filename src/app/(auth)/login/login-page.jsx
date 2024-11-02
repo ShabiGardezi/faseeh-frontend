@@ -185,7 +185,7 @@ export function LoginPageComponent() {
             </div>
           </div>
 
-          <div className="mt-6">
+          <div className="mt-6 mx-auto">
             <GoogleLoginButton />
           </div>
         </div>
