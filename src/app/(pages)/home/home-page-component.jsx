@@ -12,11 +12,13 @@ import {
   Type,
   CheckSquare,
 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export function HomePageComponent() {
   const [activeService, setActiveService] = useState(null);
   const controls = useAnimation();
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
+  const router = useRouter();
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -31,31 +33,42 @@ export function HomePageComponent() {
       icon: Mail,
       title: "عبقري البريد الإلكتروني",
       description: "اصنع رسائل إلكترونية تجذب الانتباه",
+      url:'/services/professional-emails'
     },
     {
       icon: MessageSquare,
       title: "ملهمة التسويق",
       description: "كلمات تبيع، قصص تأسر",
+      url:'/services/marketing-texts'
+
     },
     {
       icon: Book,
       title: "حائك قصص الأطفال",
       description: "اجلب خيال الأطفال إلى الحياة",
+      url:'/services/children-stories'
+
     },
     {
       icon: CheckCircle,
       title: "المحترف الدقيق",
       description: "محتوى خالي من العيوب، في كل مرة",
+      url:'/services/proof-reading'
+
     },
     {
       icon: Type,
       title: "ماستر التشكيل",
       description: "تشكيل مثالي للعربية بنقرة واحدة",
+      url:'/services/tashkeel'
+
     },
     {
       icon: CheckSquare,
       title: "حارس القواعد",
       description: "مُحسن لغتك الشخصي",
+      url:'/services/grammer-checker'
+
     },
   ];
 
@@ -88,6 +101,11 @@ export function HomePageComponent() {
       if (observer.current) observer.current.disconnect();
     };
   }, []);
+
+  const navigateToService = (url) => {
+    console.log('navigate to service')
+    router.push(url);
+  };
 
   return (
     <div className="min-h-screen bg-white text-gray-800 overflow-hidden relative">
@@ -157,11 +175,13 @@ export function HomePageComponent() {
                   }}
                   dir="rtl"
                 >
-                  <service.icon className="w-12 h-12 mb-6 text-[#20b1c9]" />
-                  <h4 className="text-2xl font-bold mb-4 text-[#20b1c9]">
+                  <service.icon className="w-12 h-12 mb-6 text-[#20b1c9] m-auto" />
+                  <h4 className="text-2xl font-bold mb-4 text-[#20b1c9] text-center">
                     {service.title}
                   </h4>
-                  <p className="text-gray-600">{service.description}</p>
+                  <p className="text-gray-600 text-center">
+                    {service.description}
+                  </p>
                 </motion.div>
                 <AnimatePresence>
                   {activeService === index && (
@@ -171,7 +191,7 @@ export function HomePageComponent() {
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                     >
-                      <Button className="bg-[#20b1c9] text-white hover:bg-[#1C9AAF]">
+                      <Button className="bg-[#20b1c9] text-white hover:bg-[#1C9AAF]" onClick={() => navigateToService(service.url)}>
                         جرّب الآن
                       </Button>
                     </motion.div>
@@ -182,7 +202,7 @@ export function HomePageComponent() {
           </div>
         </motion.section>
 
-        <motion.section className="text-center mb-24" data-aos="fade-up">
+        <motion.section className="text-center mb-24 mt-44" data-aos="fade-up">
           <h3 className="text-4xl font-bold mb-6 text-[#20b1c9]">
             اختبر الكتابة بالذكاء الاصطناعي
           </h3>
@@ -217,7 +237,7 @@ export function HomePageComponent() {
           </div>
         </motion.section>
 
-        <motion.section className="text-center" data-aos="fade-up">
+        <motion.section className="text-center mt-44" data-aos="fade-up">
           <h3 className="text-4xl font-bold mb-6 text-[#20b1c9]">
             انضم إلى ثورة الذكاء الاصطناعي
           </h3>

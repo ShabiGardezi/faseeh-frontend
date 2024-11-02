@@ -22,7 +22,7 @@ export function FuturisticHomeWhite() {
   const services = [
     { icon: Mail, title: "Email Genius", description: "Craft emails that demand attention" },
     { icon: MessageSquare, title: "Marketing Muse", description: "Words that sell, stories that compel" },
-    { icon: Book, title: "Story Weaver", description: "Bring children's imaginations to life" },
+    { icon: Book, title: "Story Weaver", description: "Bring childrens imaginations to life" },
     { icon: CheckCircle, title: "Precision Pro", description: "Flawless content, every time" },
     { icon: Type, title: "Tashkeel Master", description: "Perfect Arabic diacritics in a click" },
     { icon: CheckSquare, title: "Grammar Guardian", description: "Your personal language perfector" },
@@ -77,7 +77,7 @@ export function FuturisticHomeWhite() {
           </motion.h2>
           <p className="text-xl mb-12 max-w-3xl mx-auto text-gray-600">
             Experience the future of content creation with our cutting-edge AI tools. 
-            From emails to stories, we're revolutionizing the way you write.
+            From emails to stories, we are revolutionizing the way you write.
           </p>
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Button
