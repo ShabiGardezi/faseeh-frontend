@@ -14,14 +14,13 @@ function AboutUsPage({ showHeroSection = true }) {
       <div data-aos="fade-up" className="min-h-[70vh] grid grid-cols-1 md:grid-cols-[1fr_1fr] gap-x-10  p-10">
         {/* left side  */}
 
-        <div className="flex justify-center mb-10 ml-16">
-          {/* <MediaPlayer src={"/videos/creative-idea.json"} /> */}
+        <div className="flex justify-center mb-10 md:ml-16">
           <img src="/images/about-us.svg" alt="" srcset="" />
 
         </div>
 
         {/* right side  */}
-        <div className="text-black mr-24" dir="rtl">
+        <div className="text-black md:mr-24" dir="rtl">
           <span className="inline-block mt-20 text-2xl uppercase border-b-4 text-[#20b1c9]">
             معلومات عنا
           </span>

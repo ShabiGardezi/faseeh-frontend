@@ -103,7 +103,7 @@ export function HomePageComponent() {
   };
 
   return (
-    <div className="min-h-screen bg-white text-gray-800 overflow-hidden relative pt-[25%]">
+    <div className="min-h-screen bg-white text-gray-800 overflow-hidden relative pt-[25%] md:pt-[0%]">
       <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]"></div>
       <motion.div
         className="fixed w-64 h-64 rounded-full pointer-events-none z-10"
@@ -124,7 +124,7 @@ export function HomePageComponent() {
           transition={{ duration: 0.5 }}
         >
           <motion.h2
-            className="text-6xl font-bold mb-6 leading-tight text-[#20b1c9]"
+            className="text-4xl md:text-6xl font-bold mb-6 leading-tight text-[#20b1c9]"
             animate={{ scale: [1, 1.02, 1] }}
             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
           >
@@ -154,7 +154,7 @@ export function HomePageComponent() {
           <motion.h3 className="text-4xl font-bold mb-12 text-center text-[#20b1c9]">
             خدماتنا المدعومة بالذكاء الاصطناعي
           </motion.h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-24">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-2 md:px-24">
             {services.map((service, index) => (
               <motion.div
                 key={index}

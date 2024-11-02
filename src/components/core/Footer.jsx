@@ -28,10 +28,6 @@ const quickLinks = [
     url: "/about-us",
   },
   {
-    title: "خدماتنا",
-    url: "/services",
-  },
-  {
     title: "تواصل معنا",
     url: "/contact-us",
   },
@@ -39,20 +35,28 @@ const quickLinks = [
 
 const services = [
   {
-    title: "خدمة الإعراب",
-    url: "/services/parsing",
+    title: "خدمة التدقيق اللغوي", // Proofreading Service
+    url: "/services/proof-reading",
   },
   {
-    title: "خدمة التشكيل",
-    url: "/services/formation",
+    title: "التشكيل", // Tashkeel
+    url: "/services/tashkeel",
   },
   {
-    title: "خدمة التدقيق اللغوي",
-    url: "/services/proofreading",
+    title: "قصص الأطفال", // Children Stories
+    url: "/services/children-stories",
   },
   {
-    title: "خدمة توليد نصوص",
-    url: "/services/text-generation",
+    title: "مدقق قواعد اللغة", // Grammar Checker
+    url: "/services/grammer-checker",
+  },
+  {
+    title: "رسائل احترافية", // Professional Emails
+    url: "/services/professional-emails",
+  },
+  {
+    title: "نصوص تسويقية", // Marketing Texts
+    url: "/services/marketing-texts",
   },
 ];
 
@@ -95,7 +99,6 @@ function Footer() {
             >
               <FaLinkedin className="text-3xl text-[#1C9AAF] hover:scale-110 hover:font-semibold transition-all" />
             </Link>
-            
           </div>
         </aside>
 
@@ -157,7 +160,7 @@ function Footer() {
         className="footer bg-[#DEF4F7] text-base-content flex justify-center p-5"
       >
         <span className="text-lg font-semibold text-[#20b1c9]" dir="rtl">
-        © 2021-24 فصيح. جميع الحقوق محفوظة.
+          © 2021-24 فصيح. جميع الحقوق محفوظة.
         </span>
       </footer>
     </>
