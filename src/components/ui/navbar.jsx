@@ -29,11 +29,11 @@ export function Navbar({ menu = [] }) {
         <div className="flex items-center justify-between h-16">
           {/* logo image  */}
           <div className="flex items-center">
-            <Link href="/" className="ms-0 h-8 md:h-12 w-40">
+            <Link href="/" className="ms-0 h-8 md:h-16 w-16 rounded-[50%]">
               <img
                 src="/images/logo.png"
                 alt="Company Logo"
-                className="w-full h-full object-contain"
+                className="w-full h-full object-contain rounded-[50%]"
               />
             </Link>
           </div>
@@ -46,14 +46,14 @@ export function Navbar({ menu = [] }) {
                   onClick={handleLogout}
                   className="ml-8 px-4 py-2 rounded-md text-sm font-medium text-white bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#005bea]"
                 >
-                  Logout
+                  تسجيل الخروج
                 </button>
               ) : (
                 <button
                   onClick={handleLogin}
                   className="ml-8 px-4 py-2 rounded-md text-sm font-medium text-white bg-[#20b1c9] hover:bg-[#1C9AAF] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#005bea]"
                 >
-                  Signin
+                  تسجيل الدخول
                 </button>
               )}
               {menu.map((item) => (
@@ -89,14 +89,14 @@ export function Navbar({ menu = [] }) {
                 onClick={handleLogout}
                 className="mt-4 w-full px-4 py-2 rounded-md text-sm font-medium text-white bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#005bea]"
               >
-                Logout
+                تسجيل الخروج
               </button>
             ) : (
               <button
                 onClick={handleLogin}
                 className="mt-4 w-full px-4 py-2 rounded-md text-sm font-medium text-white bg-[#20b1c9] hover:bg-[#1C9AAF] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#005bea]"
               >
-                Signin
+                تسجيل الدخول
               </button>
             )}
           </div>

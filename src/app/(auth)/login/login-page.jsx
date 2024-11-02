@@ -14,11 +14,13 @@ import Link from "next/link";
 // Validation schema
 const schema = yup
   .object({
-    identifier: yup.string().required("Username or Email is required"),
+    identifier: yup
+      .string()
+      .required("اسم المستخدم أو البريد الإلكتروني مطلوب"),
     password: yup
       .string()
-      .required("Password is required")
-      .min(6, "Password must be at least 6 characters"),
+      .required("كلمة المرور مطلوبة")
+      .min(6, "يجب أن تتكون كلمة المرور من 6 أحرف على الأقل"),
   })
   .required();
 
@@ -40,39 +42,39 @@ export function LoginPageComponent() {
     const { identifier, password } = data;
 
     try {
-      // Make the API request with axiosInstance
+      // إجراء الطلب إلى واجهة برمجة التطبيقات باستخدام axiosInstance
       const response = await axiosInstance.post("/auth/login", {
         identifier,
         password,
       });
 
       if (response.status !== 200) {
-        console.log("error: " + response.data.message);
+        console.log("خطأ: " + response.data.message);
 
         toast({
           title: response?.data?.message,
-          description: "Failed to generate email. Please try again.",
+          description: "فشل في تسجيل الدخول. يرجى المحاولة مرة أخرى.",
           variant: "error",
         });
         return;
       }
 
       toast({
-        title: "Success",
-        description: "Logged in successfully",
+        title: "نجاح",
+        description: "تم تسجيل الدخول بنجاح",
         variant: "success",
       });
 
-      console.log("user", JSON.stringify(response?.data.user));
+      console.log("المستخدم", JSON.stringify(response?.data.user));
 
       saveUserData(response?.data?.user, response?.data?.token);
 
       router.push("/");
     } catch (error) {
-      console.error("Error while login:", error);
+      console.error("خطأ أثناء تسجيل الدخول:", error);
       toast({
-        title: "Error",
-        description: "There was an error during sign-in. Please try again.",
+        title: "خطأ",
+        description: "حدث خطأ أثناء تسجيل الدخول. يرجى المحاولة مرة أخرى.",
         variant: "error",
       });
     }
@@ -85,25 +87,29 @@ export function LoginPageComponent() {
           {/* Replace with your actual logo */}
           <Link href={"/"}>
             <div className="w-32 h-32 bg-[#20b1c9] rounded-full flex items-center justify-center text-white text-2xl font-bold">
-              LOGO
+              <img
+                src="/images/logo.png"
+                alt="Company Logo"
+                className="w-full h-full object-contain rounded-[50%]"
+              />
             </div>
           </Link>
         </div>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6" dir="rtl">
           <div>
             <label
               htmlFor="identifier"
               className="block text-sm font-medium text-gray-700"
             >
-              Email / Username
+              البريد الإلكتروني / اسم المستخدم
             </label>
             <input
               {...register("identifier")}
               type="text"
               id="identifier"
               className="bg-transparent mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#20b1c9] focus:border-[#20b1c9]"
-              placeholder="Enter your username or email"
+              placeholder="أدخل اسم المستخدم أو البريد الإلكتروني الخاص بك"
             />
             {errors.email && (
               <p className="mt-1 text-sm text-red-600">
@@ -117,7 +123,7 @@ export function LoginPageComponent() {
               htmlFor="password"
               className="block text-sm font-medium text-gray-700"
             >
-              Password
+              كلمة المرور
             </label>
             <div className="relative">
               <input
@@ -125,12 +131,12 @@ export function LoginPageComponent() {
                 type={showPassword ? "text" : "password"}
                 id="password"
                 className="bg-transparent mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#20b1c9] focus:border-[#20b1c9]"
-                placeholder="Enter your password"
+                placeholder="أدخل كلمة المرور الخاصة بك"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5"
+                className="absolute inset-y-0 left-0 pl-3 flex items-center text-sm leading-5"
               >
                 {showPassword ? (
                   <EyeOff className="h-5 w-5 text-gray-500" />
@@ -149,10 +155,10 @@ export function LoginPageComponent() {
           <div className="flex items-center justify-between">
             <div className="text-sm">
               <a
-                href="#"
+                href="/reset-password/get-email"
                 className="font-medium text-[#1C9AAF] hover:text-[#20b1c9]"
               >
-                Forgot your password?
+                نسيت كلمة المرور؟
               </a>
             </div>
           </div>
@@ -162,7 +168,7 @@ export function LoginPageComponent() {
               type="submit"
               className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#20b1c9] hover:bg-[#1C9AAF] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#20b1c9]"
             >
-              Sign in
+              تسجيل الدخول
             </button>
           </div>
         </form>
@@ -174,33 +180,23 @@ export function LoginPageComponent() {
             </div>
             <div className="relative flex justify-center text-sm">
               <span className="px-2 bg-white text-gray-500">
-                Or continue with
+                أو المتابعة باستخدام
               </span>
             </div>
           </div>
 
           <div className="mt-6">
-            {/* <button
-              type="button"
-              className="w-full flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#20b1c9]">
-              <svg className="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
-                <path
-                  d="M12.545,10.239v3.821h5.445c-0.712,2.315-2.647,3.972-5.445,3.972c-3.332,0-6.033-2.701-6.033-6.032s2.701-6.032,6.033-6.032c1.498,0,2.866,0.549,3.921,1.453l2.814-2.814C17.503,2.988,15.139,2,12.545,2C7.021,2,2.543,6.477,2.543,12s4.478,10,10.002,10c8.396,0,10.249-7.85,9.426-11.748L12.545,10.239z" />
-              </svg>
-              Sign in with Google
-            </button> */}
-
             <GoogleLoginButton />
           </div>
         </div>
 
         <p className="mt-10 text-center text-sm text-gray-500">
-          Not a member?{" "}
+          لست عضوًا؟{" "}
           <a
             href="/signup"
             className="font-medium text-[#1C9AAF] hover:text-[#20b1c9]"
           >
-            Sign up now
+            سجل الآن
           </a>
         </p>
       </div>

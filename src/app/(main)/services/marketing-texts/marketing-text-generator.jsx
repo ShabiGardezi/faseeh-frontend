@@ -100,7 +100,7 @@ export function MarketingTextGeneratorComponent() {
 
   const handleExportText = () => {
     if (marketingText) {
-      downloadPdf(marketingText, "story.pdf");
+      downloadPdf(marketingText, "martketing text.pdf");
       // Placeholder for export functionality
       toast({
         title: "تم تصدير النص التسويقي",

@@ -24,10 +24,6 @@ function ContactUsPage({ showHeroSection = true }) {
 
   return (
     <div className="overflow-x-hidden text-white">
-      {/* hero section  */}
-      {/* {showHeroSection && (
-        <ImagesSliderShower title="تواصل معنا" pageName="تواصل معنا" />
-      )} */}
 
       {/* contact us section  */}
       <div className="w-full flex flex-col items-center gap-2 pb-5 mt-[20%] md:mt-[4%]">
@@ -97,7 +93,7 @@ function ContactUsPage({ showHeroSection = true }) {
       </div>
 
       {/* contact form  */}
-      <div className="min-h-[60vh] rounded-3xl grid grid-cols-1 md:grid-cols-[1fr_1fr] m-5 md:m-20">
+      <div className="min-h-[60vh] rounded-3xl grid grid-cols-1 m-5 md:m-20">
         {/* left side  */}
         <div
           className=" text-black rounded-3xl shadow-xl bg-[#acd6dd] p-5 md:p-10"
@@ -199,20 +195,20 @@ function ContactUsPage({ showHeroSection = true }) {
         </div>
 
         {/* right side  */}
-        <div className="w-full hidden md:block" data-aos="fade-left">
+        {/* <div className="w-full hidden md:block" data-aos="fade-left">
           <MediaPlayer src={"/videos/Contact Us.json"} />
-        </div>
+        </div> */}
       </div>
 
       {/* location  */}
-      <div className="w-full h-[70vh]">
+      {/* <div className="w-full h-[70vh]">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3403.3425370187233!2d74.28167577496285!3d31.459762250135157!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391905a8d2b043c1%3A0xa44ac366851e4f27!2sRank%20BPO%20Pvt%20Ltd.!5e0!3m2!1sen!2s!4v1726672885485!5m2!1sen!2s"
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
           className="w-full h-full border-0"
         ></iframe>
-      </div>
+      </div> */}
     </div>
   );
 }

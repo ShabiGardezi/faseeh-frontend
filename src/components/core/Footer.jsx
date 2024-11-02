@@ -62,11 +62,11 @@ function Footer() {
       <footer className="footer bg-[#DEF4F7] text-black opacity-80 p-10 md:grid md:grid-cols-4 font_barlow">
         <aside data-aos="fade-up">
           <div className="flex items-start justify-start">
-            <Link href="/" className="ms-0 h-8 md:h-12 w-40">
+            <Link href="/" className="ms-0 h-8 md:h-16 w-16 rounded-full ">
               <img
                 src="/images/logo.png"
                 alt="Company Logo"
-                className="w-full h-full object-contain"
+                className="w-full h-full object-contain rounded-[50%]"
               />
             </Link>
           </div>

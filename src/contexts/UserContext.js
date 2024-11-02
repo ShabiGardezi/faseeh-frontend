@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { createContext, useContext, useState, useEffect } from "react";
 import axiosInstance from "@/lib/axios";
 
@@ -9,41 +9,52 @@ export const UserProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  // Load user data and verify token on initial render
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    const storedToken = localStorage.getItem("token");
+    const loadUserData = async () => {
+      const storedUser = localStorage.getItem("user");
+      const storedToken = localStorage.getItem("token");
 
+      // const isLoggedIn = localStorage.getItem("isAuthenticated") === "true";
+      // if (storedUser && storedToken) {
+      //   setUser(JSON.parse(storedUser));
+      //   setToken(storedToken);
+      //   setIsAuthenticated(isLoggedIn);
+      // }
 
-    const isLoggedIn = localStorage.getItem("isAuthenticated") === "true";
-    if (storedUser && storedToken) {
-      setUser(JSON.parse(storedUser));
-      setToken(storedToken);
-      setIsAuthenticated(isLoggedIn);
-    }
+      if (storedUser && storedToken) {
+        // Set token temporarily to axios headers for verification
+        axiosInstance.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${storedToken}`;
 
-    // if (storedUser && storedToken) {
-    //   // Set temporary token to axios headers for verification
-    //   axiosInstance.defaults.headers.common[
-    //     "Authorization"
-    //   ] = `Bearer ${storedToken}`;
+        try {
+          // Verify the token
+          const response = await axiosInstance.post("/auth/verify-token", {
+            token: storedToken,
+          });
 
-    //   // Verify the token
-    //   axiosInstance
-    //     .get("/auth/verify-token") // Adjust this endpoint to your token verification API route
-    //     .then((response) => {
-    //       if (response.data.isValid) {
-    //         setUser(JSON.parse(storedUser));
-    //         setToken(storedToken);
-    //         setIsAuthenticated(true);
-    //       } else {
-    //         handleInvalidToken();
-    //       }
-    //     })
-    //     .catch(() => {
-    //       handleInvalidToken();
-    //     });
-    // }
+          if (response?.data?.user) {
+            const userData = response.data.user;
+            const token = response.data.token;
+
+            setUser(userData);
+            setToken(token);
+            setIsAuthenticated(true);
+
+            // Update localStorage with verified data
+            localStorage.setItem("user", JSON.stringify(userData));
+            localStorage.setItem("token", token);
+            localStorage.setItem("isAuthenticated", "true");
+          } else {
+            handleInvalidToken();
+          }
+        } catch (error) {
+          handleInvalidToken();
+        }
+      }
+    };
+
+    loadUserData();
   }, []);
 
   const handleInvalidToken = () => {

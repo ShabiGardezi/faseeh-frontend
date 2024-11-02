@@ -200,7 +200,7 @@ export function HomePageComponent() {
           </div>
         </motion.section>
 
-        <motion.section className="text-center mb-24 mt-44" data-aos="fade-up">
+        {/* <motion.section className="text-center mb-24 mt-44" data-aos="fade-up">
           <h3 className="text-4xl font-bold mb-6 text-[#20b1c9]">
             اختبر الكتابة بالذكاء الاصطناعي
           </h3>
@@ -233,7 +233,7 @@ export function HomePageComponent() {
               عزّز النص
             </Button>
           </div>
-        </motion.section>
+        </motion.section> */}
 
         <motion.section className="text-center mt-44" data-aos="fade-up">
           <h3 className="text-4xl font-bold mb-6 text-[#20b1c9]">

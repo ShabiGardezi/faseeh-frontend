@@ -8,7 +8,7 @@ const useDownloadPdf = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const downloadPdf = async (text, filename = "extracted_text.pdf") => {
+  const downloadPdf = async (text, filename = "document.pdf") => {
     setLoading(true);
     setError(null);
 

@@ -21,24 +21,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
 import { useToast } from "@/hooks/use-toast";
-import { FileText, Trash2, Eye, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import {
   Form,
   FormControl,
@@ -47,7 +31,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { jsPDF } from "jspdf";
 import axiosInstance from "@/lib/axios";
 import LoadingOverlay from "@/components/shared/LoadingOverlay";
 import useDownloadPdf from "@/hooks/useDownloadPdf";
@@ -82,7 +65,6 @@ const formSchema = z.object({
 export function ProfessionalEmailWriterComponent() {
   const { toast } = useToast();
   const [generatedEmail, setGeneratedEmail] = useState("");
-  const [activityLog, setActivityLog] = useState([]);
   const [isGenerating, setIsGenerating] = useState(false);
   const [isEmailSaved, setIsEmailSaved] = useState(false);
   const { downloadPdf } = useDownloadPdf();
@@ -165,20 +147,7 @@ export function ProfessionalEmailWriterComponent() {
   const handleExportEmail = (email) => {
     if (generatedEmail) {
       downloadPdf(generatedEmail, "email.pdf");
-      // Show toast notification
-      toast({
-        title: "Email Exported",
-        description: `Email to ${email.recipient} exported successfully as PDF.`,
-      });
     }
-  };
-
-  const handleDeleteEmail = (id) => {
-    setActivityLog((prevLog) => prevLog.filter((entry) => entry.id !== id));
-    toast({
-      title: "Email Deleted",
-      description: "Email removed from activity log.",
-    });
   };
 
   const resetForm = () => {
@@ -385,93 +354,6 @@ export function ProfessionalEmailWriterComponent() {
             </motion.div>
           )}
         </AnimatePresence>
-
-        {/* activity log section  */}
-        {/* {!generatedEmail && (
-          <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.6 }}
-          >
-            <Card>
-              <CardHeader>
-                <CardTitle>سجل النشاط</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>المستلم</TableHead>
-                      <TableHead>الغرض</TableHead>
-                      <TableHead>النبرة</TableHead>
-                      <TableHead>الإجراءات</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {activityLog.map((entry) => (
-                      <motion.tr
-                        key={entry.id}
-                        initial={{ opacity: 0, y: -20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -20 }}
-                        transition={{
-                          type: "spring",
-                          stiffness: 300,
-                          damping: 25,
-                        }}
-                        dir="ltr"
-                      >
-                        <TableCell>{entry.recipient}</TableCell>
-                        <TableCell>{entry.purpose}</TableCell>
-                        <TableCell>{entry.tone}</TableCell>
-                        <TableCell>
-                          <div className="flex space-x-2">
-                            <Sheet>
-                              <SheetTrigger asChild>
-                                <Button variant="outline" size="icon">
-                                  <Eye className="h-4 w-4" />
-                                </Button>
-                              </SheetTrigger>
-                              <SheetContent>
-                                <SheetHeader dir="rtl">
-                                  <SheetTitle>
-                                    تفاصيل البريد الإلكتروني
-                                  </SheetTitle>
-                                  <SheetDescription>
-                                    البريد الإلكتروني إلى {entry.recipient}
-                                  </SheetDescription>
-                                </SheetHeader>
-                                <div className="mt-4" dir="rtl">
-                                  <pre className="whitespace-pre-wrap">
-                                    {entry.content}
-                                  </pre>
-                                </div>
-                              </SheetContent>
-                            </Sheet>
-                            <Button
-                              variant="outline"
-                              size="icon"
-                              onClick={() => handleExportEmail(entry)}
-                            >
-                              <FileText className="h-4 w-4" />
-                            </Button>
-                            <Button
-                              variant="outline"
-                              size="icon"
-                              onClick={() => handleDeleteEmail(entry.id)}
-                            >
-                              <Trash2 className="h-4 w-4" />
-                            </Button>
-                          </div>
-                        </TableCell>
-                      </motion.tr>
-                    ))}
-                  </TableBody>
-                </Table>
-              </CardContent>
-            </Card>
-          </motion.div>
-        )} */}
       </motion.div>
     </>
   );

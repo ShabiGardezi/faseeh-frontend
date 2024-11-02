@@ -49,22 +49,14 @@ export default function UserProfile() {
   const handleDownload = (id) => {
     console.log("download filename", id);
 
-    const selectedActivity = initialActivityLog.find(
-      (activity) => activity.id == id
+    const selectedActivity = activityLogs.find(
+      (activity) => activity._id == id
     );
 
-    console.log("download content", selectedActivity?.content);
+    console.log("download content", selectedActivity?.output);
     if (selectedActivity) {
-      downloadPdf(selectedActivity?.content, selectedActivity?.service);
+      downloadPdf(selectedActivity?.output, serviceTypeArabicMap[selectedActivity?.serviceType]);
     }
-
-    // const doc = new jsPDF();
-    // doc.addFileToVFS("ArabicFont.ttf", arabicFont);
-    // doc.addFont("ArabicFont.ttf", "ArabicFont", "normal");
-    // doc.setFont("ArabicFont");
-
-    // doc.text("مرحبا بك في ملف PDF", 10, 10, { align: "right" });
-    // doc.save("arabic-text.pdf");
   };
 
   const handleDelete = (id) => {
@@ -128,14 +120,14 @@ export default function UserProfile() {
                     {new Date(activity.createdAt).toLocaleDateString("ar-EG")}
                   </TableCell>
                   <TableCell>
-                    {activity.input.length > 20
-                      ? `${activity.input.substring(0, 20)}...`
-                      : activity.input}
+                    {activity?.input?.length > 20
+                      ? `${activity?.input?.substring(0, 20)}...`
+                      : activity?.input}
                   </TableCell>
                   <TableCell>
-                    {activity.output.length > 20
-                      ? `${activity.output.substring(0, 20)}...`
-                      : activity.output}
+                    {activity?.output?.length > 20
+                      ? `${activity?.output?.substring(0, 20)}...`
+                      : activity?.output}
                   </TableCell>
                   <TableCell>
                     <div className="flex space-x-2">

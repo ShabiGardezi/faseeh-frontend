@@ -65,7 +65,7 @@ export function TashkeelVowelizationComponent() {
     doc.text(vowelizedText, 10, 6, { maxWidth: 180 });
 
     // Save the PDF
-    doc.save(`التشكيل.pdf`);
+    doc.save(`taskeel.pdf`);
   };
 
   const handleReset = () => {

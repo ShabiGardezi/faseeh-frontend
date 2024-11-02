@@ -87,8 +87,6 @@ export function IrabSentenceParsingComponent() {
     });
   };
 
-  
-
   const handleExportResult = () => {
     if (parsingResult) {
       downloadPdf(parsingResult, "parsingResult.pdf");
