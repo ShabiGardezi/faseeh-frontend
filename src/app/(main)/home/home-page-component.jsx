@@ -132,7 +132,7 @@ export function HomePageComponent() {
             <br />
             في كتاباتك
           </motion.h2>
-          <p className="text-xl mb-12 max-w-3xl mx-auto text-gray-600">
+          <p className="text-lg md:text-xl mb-12 max-w-3xl mx-auto text-gray-600">
             اختبر مستقبل إنشاء المحتوى مع أدواتنا المتقدمة للذكاء الاصطناعي. من
             الرسائل الإلكترونية إلى القصص، نحن نُحدث ثورة في أسلوبك في الكتابة.
           </p>
