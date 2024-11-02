@@ -81,21 +81,21 @@ export function IrabSentenceParsingComponent() {
 
 
     toast({
-      title: "Parsing Result Saved",
-      description:
-        "Your parsing result has been successfully saved in your activity log.",
+      title: "تم حفظ نتيجة التحليل",
+      description: "تم حفظ نتيجة التحليل الخاصة بك بنجاح في سجل الأنشطة."
     });
+    
   };
 
   const handleExportResult = () => {
+
+    if (!isAuthenticated) {
+      setShowSignInModal(true);
+      return;
+    }
+
     if (parsingResult) {
       downloadPdf(parsingResult, "parsingResult.pdf");
-      
-      // Placeholder for export functionality
-      toast({
-        title: "القصة تم تصديرها",
-        description: "تم تصدير قصتك كملف PDF.",
-      });
     }
   };
 

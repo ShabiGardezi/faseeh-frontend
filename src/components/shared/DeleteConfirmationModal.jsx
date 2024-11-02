@@ -10,9 +10,9 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 
-const DeleteConfirmationModal = ({ onConfirm, open = true, onOpenChange }) => {
+const DeleteConfirmationModal = ({ open, onConfirm, onClose }) => {
   return (
-    <AlertDialog open={open} onOpenChange={onOpenChange}>
+    <AlertDialog open={open} onOpenChange={onClose}>
       <AlertDialogContent className="sm:max-w-[425px]">
         <AlertDialogHeader>
           <AlertDialogTitle>Are you sure?</AlertDialogTitle>
@@ -22,7 +22,7 @@ const DeleteConfirmationModal = ({ onConfirm, open = true, onOpenChange }) => {
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogCancel onClick={onClose}>Cancel</AlertDialogCancel>
           <AlertDialogAction 
             onClick={onConfirm} 
             className="bg-red-600 hover:bg-red-700"

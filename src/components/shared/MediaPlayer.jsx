@@ -35,10 +35,11 @@ const MediaPlayer = ({ src, loop = true, autoplay = true, className = "" }) => {
       ) : fileType === "mp4" ? (
         <video
           src={src}
-          controls
           loop={loop}
           autoPlay={autoplay}
-          className="w-full h-auto"
+          muted // This allows autoplay without sound
+          playsInline // This helps on mobile devices
+          className="w-full h-auto object-cover" // Use object-cover for better scaling
         />
       ) : (
         <p>Unsupported media type: {fileType}</p>

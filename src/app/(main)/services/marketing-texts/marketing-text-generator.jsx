@@ -18,6 +18,7 @@ import useDownloadPdf from "@/hooks/useDownloadPdf";
 import { useUser } from "@/contexts/UserContext";
 import { useActivityLog } from "@/contexts/ActivityLogContext";
 import SignInModal from "@/components/shared/SignInModal";
+import { useRouter } from "next/navigation";
 
 export function MarketingTextGeneratorComponent() {
   const [product, setProduct] = useState("");
@@ -31,6 +32,8 @@ export function MarketingTextGeneratorComponent() {
   const { isAuthenticated, user } = useUser();
   const { addActivityLog } = useActivityLog();
   const [showSignInModal, setShowSignInModal] = useState(false);
+  const router = useRouter()
+
 
   const handleSignIn = () => {
     setShowSignInModal(false);
@@ -99,13 +102,14 @@ export function MarketingTextGeneratorComponent() {
   };
 
   const handleExportText = () => {
+
+    if (!isAuthenticated) {
+      setShowSignInModal(true);
+      return;
+    }
+
     if (marketingText) {
       downloadPdf(marketingText, "martketing text.pdf");
-      // Placeholder for export functionality
-      toast({
-        title: "تم تصدير النص التسويقي",
-        description: "تم تصدير النص التسويقي كوثيقة PDF.",
-      });
     }
   };
 

@@ -19,6 +19,7 @@ import axiosInstance from "@/lib/axios";
 import { useUser } from "@/contexts/UserContext";
 import { useActivityLog } from "@/contexts/ActivityLogContext";
 import SignInModal from "@/components/shared/SignInModal";
+import { useRouter } from "next/navigation";
 
 export function GrammarSpellCheckComponent() {
   const [inputText, setInputText] = useState("");
@@ -31,6 +32,8 @@ export function GrammarSpellCheckComponent() {
   const { isAuthenticated, user } = useUser();
   const { addActivityLog } = useActivityLog();
   const [showSignInModal, setShowSignInModal] = useState(false);
+  const router = useRouter()
+
 
   const handleSignIn = () => {
     setShowSignInModal(false);
@@ -105,6 +108,12 @@ export function GrammarSpellCheckComponent() {
   };
 
   const handleExportResult = () => {
+
+    if (!isAuthenticated) {
+      setShowSignInModal(true);
+      return;
+    }
+
     if (checkedText) {
       downloadPdf(checkedText, "checkedText.pdf");
     }

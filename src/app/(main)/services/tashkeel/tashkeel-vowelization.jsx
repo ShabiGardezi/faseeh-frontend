@@ -8,15 +8,27 @@ import jsPDF from "jspdf";
 import axiosInstance from "@/lib/axios";
 import LoadingOverlay from "@/components/shared/LoadingOverlay";
 import useFileTextExtractor from "@/hooks/useFileTextExtractor";
+import useDownloadPdf from "@/hooks/useDownloadPdf";
+import SignInModal from "@/components/shared/SignInModal";
+import { useUser } from "@/contexts/UserContext";
+import { useRouter } from "next/navigation";
 
 export function TashkeelVowelizationComponent() {
   const [inputText, setInputText] = useState("");
   const [file, setFile] = useState(null);
   const [vowelizedText, setVowelizedText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const { downloadPdf } = useDownloadPdf();
+  const [showSignInModal, setShowSignInModal] = useState(false);
+
 
   const { extractTextFromFile, extractedText, loading, error } =
     useFileTextExtractor();
+
+    const { isAuthenticated } = useUser();
+    const router = useRouter()
+  
+
 
   const handleFileUpload = async (event) => {
     const uploadedFile = event.target.files?.[0];
@@ -26,6 +38,16 @@ export function TashkeelVowelizationComponent() {
       // Extract text from the uploaded file
       await extractTextFromFile(uploadedFile);
     }
+  };
+
+
+  const handleSignIn = () => {
+    setShowSignInModal(false);
+    router.push("/login");
+  };
+
+  const handleCloseSignInModal = () => {
+    setShowSignInModal(false);
   };
 
   // Set the extracted text to inputText when it's updated
@@ -57,15 +79,14 @@ export function TashkeelVowelizationComponent() {
   };
 
   const handleExportResults = () => {
-    const doc = new jsPDF();
+    if (!isAuthenticated) {
+      setShowSignInModal(true);
+      return;
+    }
 
-    // Content body
-    doc.setTextColor("black");
-    doc.setFontSize(12);
-    doc.text(vowelizedText, 10, 6, { maxWidth: 180 });
-
-    // Save the PDF
-    doc.save(`taskeel.pdf`);
+    if (vowelizedText) {
+      downloadPdf(vowelizedText, "tashkeel.pdf");
+    }
   };
 
   const handleReset = () => {
@@ -77,6 +98,12 @@ export function TashkeelVowelizationComponent() {
   return (
     <>
       <LoadingOverlay isLoading={isLoading} />
+
+      <SignInModal
+        open={showSignInModal}
+        onSignIn={handleSignIn}
+        onClose={handleCloseSignInModal}
+      />
 
       <div className="min-h-screen bg-white p-8">
         <div className="max-w-4xl mx-auto space-y-6">

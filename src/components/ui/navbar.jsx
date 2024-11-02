@@ -25,7 +25,7 @@ export function Navbar({ menu = [] }) {
   return (
     <nav className=" text-[#1C9AAF] transition-all">
       {/* menu items on large screens */}
-      <div className="max-w-7xl mx-auto px-1 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-1 py-1 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* logo image  */}
           <div className="flex items-center">

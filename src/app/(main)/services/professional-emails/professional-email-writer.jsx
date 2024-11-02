@@ -37,6 +37,7 @@ import useDownloadPdf from "@/hooks/useDownloadPdf";
 import { useUser } from "@/contexts/UserContext";
 import { useActivityLog } from "@/contexts/ActivityLogContext";
 import SignInModal from "@/components/shared/SignInModal";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   purpose: z
@@ -70,7 +71,9 @@ export function ProfessionalEmailWriterComponent() {
   const { downloadPdf } = useDownloadPdf();
   const { isAuthenticated, user } = useUser();
   const { addActivityLog } = useActivityLog();
+  const [showSignInModal, setShowSignInModal] = useState(false);
 
+  const router = useRouter()
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -82,7 +85,6 @@ export function ProfessionalEmailWriterComponent() {
     },
   });
 
-  const [showSignInModal, setShowSignInModal] = useState(false);
 
   const handleSignIn = () => {
     setShowSignInModal(false);
@@ -145,6 +147,12 @@ export function ProfessionalEmailWriterComponent() {
   };
 
   const handleExportEmail = (email) => {
+
+    if (!isAuthenticated) {
+      setShowSignInModal(true);
+      return;
+    }
+
     if (generatedEmail) {
       downloadPdf(generatedEmail, "email.pdf");
     }

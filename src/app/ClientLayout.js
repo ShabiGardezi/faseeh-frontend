@@ -14,14 +14,16 @@ export default function ClientLayout({ children }) {
     "/reset-password/get-email",
     "/reset-password/new-password",
   ].includes(pathname);
-  const isProtectedPage = ["/me"].includes(pathname);
-  const { isAuthenticated } = useUser();
-  const router = useRouter();
 
-  if (!isAuthenticated && isProtectedPage) {
-    router.push("/login");
-    return null;
-  }
+  
+  // const isProtectedPage = ["/me"].includes(pathname);
+  // const { isAuthenticated } = useUser();
+  // const router = useRouter();
+
+  // if (!isAuthenticated && isProtectedPage) {
+  //   router.push("/login");
+  //   return null;
+  // }
 
   return (
     <>

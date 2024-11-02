@@ -93,7 +93,7 @@ function ContactUsPage({ showHeroSection = true }) {
       </div>
 
       {/* contact form  */}
-      <div className="min-h-[60vh] rounded-3xl grid grid-cols-1 m-5 md:m-20">
+      <div className="min-h-[60vh] rounded-3xl grid grid-cols-1 md:grid-cols-[1fr_1fr] m-5 md:m-20">
         {/* left side  */}
         <div
           className=" text-black rounded-3xl shadow-xl bg-[#acd6dd] p-5 md:p-10"
@@ -195,9 +195,9 @@ function ContactUsPage({ showHeroSection = true }) {
         </div>
 
         {/* right side  */}
-        {/* <div className="w-full hidden md:block" data-aos="fade-left">
-          <MediaPlayer src={"/videos/Contact Us.json"} />
-        </div> */}
+        <div className="w-full hidden md:block" data-aos="fade-left">
+          <MediaPlayer src={"/videos/contact-us.mp4"} />
+        </div>
       </div>
 
       {/* location  */}

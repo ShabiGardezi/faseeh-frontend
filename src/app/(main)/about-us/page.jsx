@@ -8,17 +8,16 @@ import { RiCustomerService2Fill, RiTeamFill } from "react-icons/ri";
 
 function AboutUsPage({ showHeroSection = true }) {
   return (
-    <div className="bg-white">
-      {/* {showHeroSection && (
-        <ImagesSliderShower title="معلومات عنا" pageName="معلومات عنا" />
-      )} */}
+    <div className="bg-white pt-[25%] md:pt-[10%]">
 
       {/* about us  */}
-      <div className="min-h-[70vh] grid grid-cols-1 md:grid-cols-[1fr_1fr] gap-x-10  p-10">
+      <div data-aos="fade-up" className="min-h-[70vh] grid grid-cols-1 md:grid-cols-[1fr_1fr] gap-x-10  p-10">
         {/* left side  */}
 
-        <div className="flex justify-center mt-10">
-          <MediaPlayer src={"/videos/creative-idea.json"} />
+        <div className="flex justify-center mb-10 ml-16">
+          {/* <MediaPlayer src={"/videos/creative-idea.json"} /> */}
+          <img src="/images/about-us.svg" alt="" srcset="" />
+
         </div>
 
         {/* right side  */}
@@ -48,7 +47,7 @@ function AboutUsPage({ showHeroSection = true }) {
       </div>
 
       {/* counter section  */}
-      <div className="flex flex-col md:flex-row gap-10 md:gap-0 items-center justify-around py-5 pb-10 text-[#20b1c9]">
+      <div className="mt-10 flex flex-col md:flex-row gap-10 md:gap-0 items-center justify-around py-5 pb-10 text-[#20b1c9]">
         <div className="flex flex-col justify-center ">
           <div className="flex items-center gap-2 justify-center text-xl">
             <RiCustomerService2Fill className="text-4xl md:text-6xl mt-3" />
@@ -68,37 +67,9 @@ function AboutUsPage({ showHeroSection = true }) {
         </div>
       </div>
 
-      {/* Who We Are  */}
-      <div className="min-h-[70vh] grid grid-cols-1 md:grid-cols-[1fr_1fr] gap-x-10  p-10">
-        {/* left side  */}
-        <div className="text-black ml-24" dir="rtl">
-          <span className="inline-block mt-20 text-2xl uppercase border-b-4 text-[#20b1c9]">
-            من نحن
-          </span>
-
-          <h1 data-aos="fade-down" className="mt-10 text-3xl font-semibold">
-            إمكانات النجاح تكمن في قوة التواصل اللغوي
-          </h1>
-
-          <p
-            data-aos="fade-up"
-            className="mt-5 text-md text-opacity-85 text-justify font_barlow"
-          >
-            فصيح ملتزم بتقديم قيمة دائمة لعملائنا من خلال خدمات لغوية متكاملة.
-            نستخدم تقنيات متطورة وممارسات متينة لتقديم حلول لغوية فعالة ومتفوقة
-            من مواقع عالمية مختلفة، مما يمكن عملاءنا من تحقيق أهدافهم في تعزيز
-            جودة المحتوى والنصوص.
-          </p>
-        </div>
-
-        {/* right side  */}
-        <div className="flex justify-center">
-          <MediaPlayer src={"/videos/time-management.json"} />
-        </div>
-      </div>
 
       {/* icons  */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-8 p-10" dir="rtl">
+      <div className="mt-16 grid grid-cols-1 md:grid-cols-4 gap-8 p-10" dir="rtl">
         <div className="flex flex-col justify-center items-center">
           <img
             src="/icons/business-direction.svg"
@@ -154,7 +125,7 @@ function AboutUsPage({ showHeroSection = true }) {
       </div>
 
       {/* testimonials */}
-      <div className="pb-10">
+      <div className="pb-10 mb-20">
         <div className="flex flex-col justify-center items-center text-black p-10">
           <span className="inline-block mt-20 text-2xl uppercase border-b-4 text-[#20b1c9]">
           آراء العملاء

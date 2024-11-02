@@ -15,7 +15,7 @@ import { Navbar } from "../ui/navbar";
 const menu = [
   {
     name: "خدماتنا",
-    href: "/services",
+    href: "",
     icon: <Zap className="h-4 w-4 ml-1" />,
     subMenu: [
       {

@@ -26,6 +26,7 @@ import useDownloadPdf from "@/hooks/useDownloadPdf";
 import { useUser } from "@/contexts/UserContext";
 import { useActivityLog } from "@/contexts/ActivityLogContext";
 import SignInModal from "@/components/shared/SignInModal";
+import { useRouter } from "next/navigation";
 
 const proverbs = [
   "من طلب العلا سهر الليالي",
@@ -46,6 +47,8 @@ export function ArabicProverbStoriesComponent() {
   const { isAuthenticated, user } = useUser();
   const { addActivityLog } = useActivityLog();
   const [showSignInModal, setShowSignInModal] = useState(false);
+  const router = useRouter()
+
 
   const handleSignIn = () => {
     setShowSignInModal(false);
@@ -103,14 +106,13 @@ export function ArabicProverbStoriesComponent() {
   };
 
   const handleExportStory = () => {
+    if (!isAuthenticated) {
+      setShowSignInModal(true);
+      return;
+    }
+
     if (story) {
       downloadPdf(story, "story.pdf");
-
-      // Placeholder for export functionality
-      toast({
-        title: "القصة تم تصديرها",
-        description: "تم تصدير قصتك كملف PDF.",
-      });
     }
   };
 
