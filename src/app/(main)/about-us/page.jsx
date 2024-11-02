@@ -8,10 +8,10 @@ import { RiCustomerService2Fill, RiTeamFill } from "react-icons/ri";
 
 function AboutUsPage({ showHeroSection = true }) {
   return (
-    <div className="bg-[#DEF4F7]">
-      {showHeroSection && (
+    <div className="bg-white">
+      {/* {showHeroSection && (
         <ImagesSliderShower title="معلومات عنا" pageName="معلومات عنا" />
-      )}
+      )} */}
 
       {/* about us  */}
       <div className="min-h-[70vh] grid grid-cols-1 md:grid-cols-[1fr_1fr] gap-x-10  p-10">
@@ -23,7 +23,7 @@ function AboutUsPage({ showHeroSection = true }) {
 
         {/* right side  */}
         <div className="text-black mr-24" dir="rtl">
-          <span className="inline-block mt-20 text-2xl uppercase border-b-4 text-blue-600">
+          <span className="inline-block mt-20 text-2xl uppercase border-b-4 text-[#20b1c9]">
             معلومات عنا
           </span>
 
@@ -48,7 +48,7 @@ function AboutUsPage({ showHeroSection = true }) {
       </div>
 
       {/* counter section  */}
-      <div className="flex flex-col md:flex-row gap-10 md:gap-0 items-center justify-around py-5 pb-10 text-blue-600">
+      <div className="flex flex-col md:flex-row gap-10 md:gap-0 items-center justify-around py-5 pb-10 text-[#20b1c9]">
         <div className="flex flex-col justify-center ">
           <div className="flex items-center gap-2 justify-center text-xl">
             <RiCustomerService2Fill className="text-4xl md:text-6xl mt-3" />
@@ -72,7 +72,7 @@ function AboutUsPage({ showHeroSection = true }) {
       <div className="min-h-[70vh] grid grid-cols-1 md:grid-cols-[1fr_1fr] gap-x-10  p-10">
         {/* left side  */}
         <div className="text-black ml-24" dir="rtl">
-          <span className="inline-block mt-20 text-2xl uppercase border-b-4 text-blue-600">
+          <span className="inline-block mt-20 text-2xl uppercase border-b-4 text-[#20b1c9]">
             من نحن
           </span>
 
@@ -156,7 +156,7 @@ function AboutUsPage({ showHeroSection = true }) {
       {/* testimonials */}
       <div className="pb-10">
         <div className="flex flex-col justify-center items-center text-black p-10">
-          <span className="inline-block mt-20 text-2xl uppercase border-b-4 text-blue-600">
+          <span className="inline-block mt-20 text-2xl uppercase border-b-4 text-[#20b1c9]">
           آراء العملاء
           </span>
 

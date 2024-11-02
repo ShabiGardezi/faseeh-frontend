@@ -25,13 +25,13 @@ function ContactUsPage({ showHeroSection = true }) {
   return (
     <div className="overflow-x-hidden text-white">
       {/* hero section  */}
-      {showHeroSection && (
+      {/* {showHeroSection && (
         <ImagesSliderShower title="تواصل معنا" pageName="تواصل معنا" />
-      )}
+      )} */}
 
       {/* contact us section  */}
-      <div className="w-full flex flex-col items-center gap-2 pb-5">
-        <span className="inline-block mt-20 text-2xl uppercase border-b-4 text-blue-600">
+      <div className="w-full flex flex-col items-center gap-2 pb-5 mt-[20%] md:mt-[4%]">
+        <span className="inline-block mt-20 text-2xl uppercase border-b-4 text-[#20b1c9]">
           تواصل معنا
         </span>
 
@@ -54,7 +54,7 @@ function ContactUsPage({ showHeroSection = true }) {
       {/* contact details  */}
       <div className="min-h-[40vh] grid grid-cols-1 md:grid-cols-3 gap-5 m-5 md:mx-10">
         <div className="bg-base-300 flex flex-col gap-5 items-center justify-center rounded-3xl text-white p-5">
-          <div className="bg-blue-600 w-20 h-20 rounded-full flex items-center justify-center">
+          <div className="bg-[#20b1c9] w-20 h-20 rounded-full flex items-center justify-center">
             <IoLocationOutline className="text-5xl text-white" />
           </div>
 
@@ -67,7 +67,7 @@ function ContactUsPage({ showHeroSection = true }) {
           </p>
         </div>
         
-        <div className="bg-blue-600 flex flex-col gap-5 items-center justify-center rounded-3xl text-white p-5">
+        <div className="bg-[#20b1c9] flex flex-col gap-5 items-center justify-center rounded-3xl text-white p-5">
           <div className="bg-base-300 w-20 h-20 rounded-full flex items-center justify-center">
             <LuPhoneCall className="text-5xl text-white" />
           </div>
@@ -82,7 +82,7 @@ function ContactUsPage({ showHeroSection = true }) {
         </div>
         
         <div className="bg-base-300 flex flex-col gap-5 items-center justify-center rounded-3xl text-white p-5">
-          <div className="bg-blue-600 w-20 h-20 rounded-full flex items-center justify-center">
+          <div className="bg-[#20b1c9] w-20 h-20 rounded-full flex items-center justify-center">
             <MdOutlineAttachEmail className="text-5xl text-white" />
           </div>
 
@@ -100,7 +100,7 @@ function ContactUsPage({ showHeroSection = true }) {
       <div className="min-h-[60vh] rounded-3xl grid grid-cols-1 md:grid-cols-[1fr_1fr] m-5 md:m-20">
         {/* left side  */}
         <div
-          className=" text-black rounded-3xl shadow-xl bg-[#001b47]/30 p-5 md:p-10"
+          className=" text-black rounded-3xl shadow-xl bg-[#acd6dd] p-5 md:p-10"
           data-aos="fade-right"
           dir="rtl"
         >
@@ -109,7 +109,7 @@ function ContactUsPage({ showHeroSection = true }) {
             <div className="mb-4">
               <label
                 htmlFor="name"
-                className="block text-sm font-medium text-gray-200"
+                className="block text-sm font-medium text-gray-100"
               >
                 الاسم الكامل
               </label>
@@ -117,7 +117,7 @@ function ContactUsPage({ showHeroSection = true }) {
                 type="text"
                 id="name"
                 {...register("name", { required: true })}
-                className={`mt-1 bg-slate-600 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm ${
+                className={`mt-1 bg-white block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm ${
                   errors.name ? "border-red-500" : ""
                 }`}
               />
@@ -138,7 +138,7 @@ function ContactUsPage({ showHeroSection = true }) {
                 type="email"
                 id="email"
                 {...register("email", { required: true })}
-                className={`mt-1 bg-slate-600 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm ${
+                className={`mt-1 bg-white block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm ${
                   errors.email ? "border-red-500" : ""
                 }`}
               />
@@ -159,7 +159,7 @@ function ContactUsPage({ showHeroSection = true }) {
                 type="number"
                 id="subject"
                 {...register("subject", { required: true })}
-                className={`mt-1 bg-slate-600 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm ${
+                className={`mt-1 bg-white block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm ${
                   errors.phone ? "border-red-500" : ""
                 }`}
               />
@@ -180,7 +180,7 @@ function ContactUsPage({ showHeroSection = true }) {
                 type="text"
                 id="message"
                 {...register("message", { required: true })}
-                className={`mt-1 bg-slate-600 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm ${
+                className={`mt-1 bg-white block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm ${
                   errors.message ? "border-red-500" : ""
                 }`}
               />
@@ -191,7 +191,7 @@ function ContactUsPage({ showHeroSection = true }) {
 
             <button
               type="submit"
-              className="w-full bg-blue-600 text-white p-4 mt-10 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+              className="w-full bg-[#20b1c9] text-white p-4 mt-10 rounded-md hover:bg-[#1C9AAF] focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
             >
               أرسل الآن
             </button>
