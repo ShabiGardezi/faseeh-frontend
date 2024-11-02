@@ -103,7 +103,7 @@ export function HomePageComponent() {
   };
 
   return (
-    <div className="min-h-screen bg-white text-gray-800 overflow-hidden relative">
+    <div className="min-h-screen bg-white text-gray-800 overflow-hidden relative pt-[25%]">
       <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]"></div>
       <motion.div
         className="fixed w-64 h-64 rounded-full pointer-events-none z-10"
