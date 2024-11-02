@@ -1,6 +1,6 @@
 import React from "react";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
-import axiosInstance from "@/lib/axios"; // Adjust this path if necessar
+import axiosInstance from "@/lib/axios"; // Adjust this path if necessary
 import { toast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/contexts/UserContext";
@@ -19,7 +19,7 @@ function GoogleLoginButton() {
       });
 
       if (res.status === 200) {
-        console.log("Login/Sign-Up Success:", res.data);
+        console.log("تسجيل الدخول/التسجيل بنجاح:", res.data);
 
         // Assuming the response contains user data and token
         const { user, token } = res.data; // Adjust this line based on your backend response structure
@@ -27,40 +27,41 @@ function GoogleLoginButton() {
         // Save user data and token in the context
         saveUserData(user, token);
 
+        router.push("/");
 
         toast({
-          title: "Success",
-          description: "Logged in successfully",
+          title: "نجاح",
+          description: "تم تسجيل الدخول بنجاح",
           variant: "success",
         });
       } else {
-        console.error("Error:", res.data.message);
+        console.error("خطأ:", res.data.message);
 
         toast({
-          title: "Error",
+          title: "خطأ",
           description:
             res.data.message ||
-            "There was an error during sign-in. Please try again.",
+            "حدث خطأ أثناء تسجيل الدخول. يرجى المحاولة مرة أخرى.",
           variant: "error",
         });
       }
     } catch (error) {
-      console.error("Error during login:", error);
+      console.error("خطأ أثناء تسجيل الدخول:", error);
 
       toast({
-        title: "Error",
-        description: "There was an error during sign-in. Please try again.",
+        title: "خطأ",
+        description: "حدث خطأ أثناء تسجيل الدخول. يرجى المحاولة مرة أخرى.",
         variant: "error",
       });
     }
   };
 
   const handleLoginFailure = (error) => {
-    console.error("Login Failed:", error);
+    console.error("فشل تسجيل الدخول:", error);
 
     toast({
-      title: "Error",
-      description: "There was an error during sign-in. Please try again.",
+      title: "خطأ",
+      description: "حدث خطأ أثناء تسجيل الدخول. يرجى المحاولة مرة أخرى.",
       variant: "error",
     });
   };
