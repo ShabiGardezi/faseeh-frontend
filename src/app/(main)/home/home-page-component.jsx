@@ -55,7 +55,7 @@ export function HomePageComponent() {
     },
     {
       icon: Type,
-      title: "ماستر التشكيل",
+      title: "خبير التشكيل",
       description: "تشكيل مثالي للعربية بنقرة واحدة",
       url: "/services/tashkeel",
     },
@@ -134,7 +134,7 @@ export function HomePageComponent() {
           </motion.h2>
           <p className="text-lg md:text-xl mb-12 max-w-3xl mx-auto text-gray-600">
             اختبر مستقبل إنشاء المحتوى مع أدواتنا المتقدمة للذكاء الاصطناعي. من
-            الرسائل الإلكترونية إلى القصص، نحن نُحدث ثورة في أسلوبك في الكتابة.
+            الرسائل الإلكترونية إلى القصص، نحن نُحدث ثورة في أسلوبك في الكتابة
           </p>
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Button className="bg-[#20b1c9] hover:bg-[#1C9AAF] text-white text-xl px-12 py-6 rounded-full shadow-lg transition-all duration-300">
@@ -242,7 +242,7 @@ export function HomePageComponent() {
           <p className="text-xl mb-12 max-w-2xl mx-auto text-gray-600">
             ابقَ على اطلاع بأحدث تقنيات الكتابة بالذكاء الاصطناعي. اشترك في
             نشرتنا الإخبارية للحصول على نصائح حصرية، وتحديثات، والوصول المبكر
-            إلى الميزات الجديدة.
+            إلى الميزات الجديدة
           </p>
           <form
             className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto"

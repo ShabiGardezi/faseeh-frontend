@@ -1,12 +1,10 @@
 "use client";
-import { ImagesSliderShower } from "@/components/shared/ImagesSliderShower";
-import MediaPlayer from "@/components/shared/MediaPlayer";
 import NumberAnimation from "@/components/shared/NumberAnimation";
 import { TestimonialCarousel } from "@/components/shared/TestimonialCarousel";
 import React from "react";
 import { RiCustomerService2Fill, RiTeamFill } from "react-icons/ri";
 
-function AboutUsPage({ showHeroSection = true }) {
+function AboutUsPage() {
   return (
     <div className="bg-white pt-[25%] md:pt-[10%]">
 
@@ -50,7 +48,7 @@ function AboutUsPage({ showHeroSection = true }) {
         <div className="flex flex-col justify-center ">
           <div className="flex items-center gap-2 justify-center text-xl">
             <RiCustomerService2Fill className="text-4xl md:text-6xl mt-3" />
-            <NumberAnimation end={22345} suffix={"+"} />
+            <NumberAnimation end={20} suffix={"+"} />
           </div>
 
           <p className="text-center text-xl text-black">عملاء سعداء</p>

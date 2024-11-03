@@ -39,7 +39,6 @@
     "pdf-lib": "^1.17.1",
     "pdfjs-dist": "4.7.76",
     "pdfmake": "^0.2.14",
-    "rank-bpo": "file:",
     "react": "^18",
     "react-countup": "^6.5.3",
     "react-dom": "^18",

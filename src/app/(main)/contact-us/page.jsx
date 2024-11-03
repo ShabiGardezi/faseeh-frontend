@@ -5,7 +5,6 @@ import { IoLocationOutline } from "react-icons/io5";
 import { LuPhoneCall } from "react-icons/lu";
 import { MdOutlineAttachEmail } from "react-icons/md";
 import MediaPlayer from "@/components/shared/MediaPlayer";
-import { ImagesSliderShower } from "@/components/shared/ImagesSliderShower";
 
 function ContactUsPage({ showHeroSection = true }) {
   const {

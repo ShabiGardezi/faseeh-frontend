@@ -29,7 +29,7 @@ export function Navbar({ menu = [] }) {
         <div className="flex items-center justify-between h-16">
           {/* logo image  */}
           <div className="flex items-center">
-            <Link href="/" className="ms-0 h-8 md:h-16 w-16 rounded-[50%]">
+            <Link href="/" className="ms-0 h-14 w-14 md:h-16 md:w-16 rounded-[50%]">
               <img
                 src="/images/logo.png"
                 alt="Company Logo"
